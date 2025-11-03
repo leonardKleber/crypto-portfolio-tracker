@@ -13,6 +13,8 @@ export default function Dashboard() {
   const pieSeries = [44, 55, 13, 43];
   const pieLabels = ["Apples", "Bananas", "Cherries", "Dates"];
   const totalValue = 155;
+  const totalReturn = 20;
+  const nominalReturn = 2;
   const lineSeries = [
     {
       name: "Portfolio Value",
@@ -95,6 +97,57 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+
+      <p style={{
+        color: "var(--app-color-300)",
+        fontSize: "0.75rem",
+        fontWeight: "normal",
+        marginBottom: "5px"
+      }}>
+        Total Portolio Value
+      </p>
+      <p style={{
+        marginTop: "5px",
+        color: "var(--app-color-50)",
+        fontSize: "1.5rem",
+        fontWeight: "bold",
+      }}>
+        {totalValue}€
+      </p>
+
+      <p style={{
+        color: "var(--app-color-300)",
+        fontSize: "0.75rem",
+        fontWeight: "normal",
+        marginBottom: "5px"
+      }}>
+        Relative Portfolio Performance
+      </p>
+      <p style={{
+        color: "var(--app-color-50)",
+        fontSize: "1.5rem",
+        fontWeight: "bold",
+        marginTop: "5px",
+      }}>
+        {totalReturn}%
+      </p>
+
+      <p style={{
+        color: "var(--app-color-300)",
+        fontSize: "0.75rem",
+        fontWeight: "normal",
+        marginBottom: "5px"
+      }}>
+        Nominal Portfolio Gain
+      </p>
+      <p style={{
+        color: "var(--app-color-50)",
+        fontSize: "1.5rem",
+        fontWeight: "bold",
+        marginTop: "5px",
+      }}>
+        {nominalReturn}€
+      </p>
     </div>
   );
 }
