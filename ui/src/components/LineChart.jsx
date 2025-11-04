@@ -35,7 +35,7 @@ export default function AreaChart({ chartHeight, lineChartWidth, lineSeries, cat
         opacityFrom: 0.6,
         opacityTo: 0,
         stops: [0, 100],
-        inverseColors: hasNegative, // 👈 flips gradient if negative values exist
+        inverseColors: hasNegative,
       },
     },
     grid: {
