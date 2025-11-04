@@ -83,6 +83,15 @@ export default function Dashboard() {
         relative_return={api_data.relative_return}
         nominal_return={api_data.nominal_return}
       />
+
+      <div>Content</div>
+      <div>Content</div>
+      <div>Content</div>
+      <div>Content</div>
+      <div>Content</div>
+      <div>Content</div>
+      <div>Content</div>
+      <div>Content</div>
     </div>
   );
 }
