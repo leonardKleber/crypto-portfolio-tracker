@@ -1,48 +1,60 @@
 import Chart from "react-apexcharts";
 
-export default function LineChart({ chartHeight, lineChartWidth, lineSeries, categories }) {
-    const lineOptions = {
-        chart: {
-            id: "line-chart",
-            toolbar: { show: false },
-            height: chartHeight,
+export default function AreaChart({ chartHeight, lineChartWidth, lineSeries, categories }) {
+  const areaOptions = {
+    chart: {
+      id: "area-chart",
+      toolbar: { show: false },
+      height: chartHeight,
+    },
+    xaxis: {
+      categories: categories,
+      labels: {
+        style: {
+          colors: "var(--app-color-50)",
+          fontSize: "0.75rem",
         },
-        xaxis: {
-            categories: categories,
-            labels: {
-                style: {
-                    colors: "var(--app-color-50)",
-                    fontSize: "0.75rem"
-                }
-            }
+      },
+    },
+    yaxis: {
+      labels: {
+        style: {
+          colors: "var(--app-color-50)",
+          fontSize: "0.75rem",
         },
-        yaxis: {
-            labels: {
-                style: {
-                    colors: "var(--app-color-50)",
-                    fontSize: "0.75rem"
-                }
-            }
-        },
-        stroke: {
-            curve: "smooth",
-            width: 2
-        },
-        colors: ["var(--app-color-300)"],
-        grid: {
-            show: true,
-            borderColor: "var(--app-color-900)",
-            xaxis: {
-                lines: { show: false }
-            }
-        },
-        tooltip: {
-            theme: "dark",
-            style: { fontSize: "12px", fontFamily: "Arial, sans-serif" },
-            marker: { show: true }
-        }
-    };
-    return (
-        <Chart options={lineOptions} series={lineSeries} type="line" width={lineChartWidth} height={chartHeight} />
-    )
+      },
+    },
+    stroke: { curve: "smooth", width: 2 },
+    colors: ["var(--accent-color-300)"],
+    fill: {
+      type: "gradient",
+      gradient: {
+        shadeIntensity: 1,
+        opacityFrom: 0.6,
+        opacityTo: 0,
+        stops: [0, 100, 100],
+      },
+    },
+    grid: {
+      show: true,
+      borderColor: "var(--app-color-900)",
+      xaxis: { lines: { show: false } },
+    },
+    tooltip: {
+      theme: "dark",
+      style: { fontSize: "12px", fontFamily: "Arial, sans-serif" },
+      marker: { show: true },
+    },
+    dataLabels: { enabled: false },
+  };
+
+  return (
+    <Chart
+      options={areaOptions}
+      series={lineSeries}
+      type="area"
+      width={lineChartWidth}
+      height={chartHeight}
+    />
+  );
 }

@@ -6,10 +6,10 @@ export default function PieChart({ chartHeight, pieSeries, pieLabels, totalValue
     labels: pieLabels,
     stroke: { show: false },
     colors: [
-      "var(--app-color-300)", 
-      "var(--app-color-400)", 
-      "var(--app-color-500)", 
-      "var(--app-color-600)"
+      "var(--accent-color-300)", 
+      "var(--accent-color-400)", 
+      "var(--accent-color-500)", 
+      "var(--accent-color-600)"
     ],
     legend: { show: false }, 
     dataLabels: { enabled: false },
@@ -17,7 +17,13 @@ export default function PieChart({ chartHeight, pieSeries, pieLabels, totalValue
 
   return (
     <div className="piechart-wrapper" style={{ width: `${chartHeight}px`, height: `${chartHeight}px` }}>
-      <Chart options={pieOptions} series={pieSeries} type="donut" width={chartHeight} height={chartHeight} />
+      <Chart 
+        options={pieOptions} 
+        series={pieSeries} 
+        type="donut" 
+        width={chartHeight} 
+        height={chartHeight} 
+      />
       <div className="piechart-center">
         <div className="piechart-value">{totalValue.toFixed(2)}€</div>
         <div className="piechart-label">Total</div>
