@@ -21,7 +21,7 @@ export default function Dashboard() {
     "line_x_data": [
       { 
         name: "Portfolio Value", 
-        data: [-100, -50, 0, 100, 400, 300, 500, 800, 3000, 2500, 3500, 3200, 4000, 3800, 4500]
+        data: [-1000, -500, 0, 200, 500, 300, 500, 800, 3000, 2500, 3500, 3200, 4000, 3800, 4500]
       }
     ],
     "line_y": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan-2", "Feb-2", "Mar-2"],

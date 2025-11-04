@@ -2,6 +2,65 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
 
+import "../styles/Login.css"
+
+import Chart from "react-apexcharts";
+
+const SAMPLE_SERIES = [
+  { 
+    name: "Portfolio Value", 
+    data: [100.00, 112.60, 126.90, 159.80, 180.38, 266.92, 354.79, 505.22, 523.06, 610.06, 812.04, 1242.86]
+  }
+]
+
+const AREA_OPTIONS = {
+  chart: {
+    id: "area-chart",
+    toolbar: { show: false },
+    height: "300px",
+  },
+  xaxis: {
+    categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    labels: {
+      style: {
+        colors: "var(--app-color-50)",
+        fontSize: "0.75rem",
+      },
+    },
+  },
+  yaxis: {
+    labels: {
+      style: {
+        colors: "var(--app-color-50)",
+        fontSize: "0.75rem",
+      },
+    },
+  },
+  stroke: { curve: "smooth", width: 2 },
+  colors: ["var(--accent-color-300)"],
+  fill: {
+    type: "gradient",
+    gradient: {
+      shadeIntensity: 1,
+      opacityFrom: 0.6,
+      opacityTo: 0,
+      stops: [0, 100],
+    },
+  },
+  grid: {
+    show: true,
+    borderColor: "var(--app-color-800)",
+    xaxis: { lines: { show: false } },
+  },
+  tooltip: {
+    theme: "dark",
+    style: { fontSize: "12px", fontFamily: "Arial, sans-serif" },
+    marker: { show: true },
+  },
+  dataLabels: { enabled: false },
+};
+
+
 export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -15,31 +74,81 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <form
-        onSubmit={handleSubmit}
-      >
-        <h2>Login</h2>
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="Username"
-          required
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          required
-        />
-        <button
-          type="submit"
-        >
-          Log In
-        </button>
-      </form>
+    <div className="main-container">
+      <div className="sub-main-container">
+        <div className="left-container">
+          <div className="left-container-heading-div">
+            <p style={{ margin: 0, paddingBottom: "0.5rem" }}>Your Crypto.</p>
+            <p style={{ margin: 0, paddingBottom: "0.5rem" }}>Your Insights.</p>
+            <p style={{ margin: 0, paddingBottom: "0.5rem" }}>One Dashboard.</p>
+          </div>
+
+          <div style={{ width: "100%", height: "100%" }}>
+            <Chart
+              options={AREA_OPTIONS}
+              series={SAMPLE_SERIES}
+              type="area"
+              height="100%"
+            />
+          </div>
+        </div>
+
+        <div className="right-container">
+          <div className="right-container-heading-div">
+            <p style={{ margin: 0 }}>
+              Welcome back!
+            </p>
+          </div>
+
+          <div style={{ width: "100%" }}>
+            <form
+              onSubmit={handleSubmit}
+              className="login-form"
+            >
+              <label className="login-label">
+                Username
+              </label>
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                className="login-input-field"
+              />
+              <label className="login-label">
+                Password
+              </label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="login-input-field"
+              />
+              <button
+                type="submit"
+                className="login-button"
+              >
+                Log In
+              </button>
+            </form>
+          </div>
+
+          <hr className="divider-line" />
+
+          <div style={{ width: "100%" }}>
+            <p style={{ margin: "0 0 1rem 0" }}>
+              Don’t have an account yet?
+            </p>
+            <button
+              type="button"
+              className="register-button"
+            >
+              Register
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import Layout from "./components/Layout";
 import Dashboard from "./pages/Dashboard";
 import Settings from "./pages/Settings";
 import Login from "./pages/Login";
+import Transactions from "./pages/Transactions";
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
         >
           <Route index element={<Dashboard />} />
           <Route path="settings" element={<Settings />} />
+          <Route path="transactions" element={<Transactions />} />
         </Route>
       </Routes>
     </AuthProvider>
