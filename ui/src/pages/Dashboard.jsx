@@ -95,7 +95,6 @@ export default function Dashboard() {
       </div>
     
       <SummaryTable
-        chartHeight={CHART_HEIGHT}
         portfolio_value={api_data.portfolio_value}
         relative_return={api_data.relative_return}
         nominal_return={api_data.nominal_return}
