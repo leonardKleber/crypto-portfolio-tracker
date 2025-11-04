@@ -1,0 +1,21 @@
+.heading-tr {
+  color: var(--app-color-300);
+  font-size: 0.75rem;
+  font-weight: normal;
+}
+
+.number-tr {
+  color: var(--app-color-50);
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.td-text {
+  width: 50%;
+  padding-bottom: 4px;
+}
+
+.td-number {
+  width: 50%;
+  padding-bottom: 16px;
+}

@@ -19,7 +19,7 @@ export default function PieChart({ chartHeight, pieSeries, pieLabels, totalValue
     <div className="piechart-wrapper" style={{ width: `${chartHeight}px`, height: `${chartHeight}px` }}>
       <Chart options={pieOptions} series={pieSeries} type="donut" width={chartHeight} height={chartHeight} />
       <div className="piechart-center">
-        <div className="piechart-value">{totalValue}€</div>
+        <div className="piechart-value">{totalValue.toFixed(2)}€</div>
         <div className="piechart-label">Total</div>
       </div>
     </div>
