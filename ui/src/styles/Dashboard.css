@@ -6,6 +6,7 @@
     border-radius: 6px;
     color: var(--app-color-50);
     font-family: Arial, sans-serif;
+    font-weight: bold;
     transition: background-color 0.2s ease;
     height: 2em
 }
@@ -21,6 +22,7 @@
     border-radius: 6px;
     color: var(--app-color-50);
     font-family: Arial, sans-serif;
+    font-weight: bold;
     height: 2em
 }
 

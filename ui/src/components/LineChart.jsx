@@ -1,6 +1,8 @@
 import Chart from "react-apexcharts";
 
 export default function AreaChart({ chartHeight, lineChartWidth, lineSeries, categories }) {
+  const hasNegative = lineSeries.some(s => s.data.some(value => value < 0));
+
   const areaOptions = {
     chart: {
       id: "area-chart",
@@ -32,7 +34,8 @@ export default function AreaChart({ chartHeight, lineChartWidth, lineSeries, cat
         shadeIntensity: 1,
         opacityFrom: 0.6,
         opacityTo: 0,
-        stops: [0, 100, 100],
+        stops: [0, 100],
+        inverseColors: hasNegative, // 👈 flips gradient if negative values exist
       },
     },
     grid: {
