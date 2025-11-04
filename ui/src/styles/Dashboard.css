@@ -29,3 +29,16 @@
 .middle-button:hover {
   background-color: var(--app-color-900);
 }
+
+.heading-one {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 50px;
+}
+
+.heading-two {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 50px;
+  padding-top: 100px;
+}
