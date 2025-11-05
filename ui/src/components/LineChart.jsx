@@ -11,15 +11,9 @@ export default function AreaChart({ chartHeight, lineChartWidth, lineSeries, cat
     },
     xaxis: {
       categories: categories,
-      labels: {
-        show: false, // ✅ hides numbers/text
-      },
-      axisTicks: {
-        show: false, // ✅ hides small tick marks
-      },
-      axisBorder: {
-        show: false, // ✅ hides bottom axis line
-      },
+      labels: { show: false },
+      axisTicks: { show: false },
+      axisBorder: { show: false },
     },
     yaxis: {
       labels: {
@@ -49,13 +43,7 @@ export default function AreaChart({ chartHeight, lineChartWidth, lineSeries, cat
     tooltip: {
       theme: "dark",
       style: { fontSize: "12px", fontFamily: "Arial, sans-serif" },
-      marker: { show: true },
-      y: {
-        formatter: (val) => `${val.toFixed(2)}`, // 👈 show formatted y value
-        title: {
-          formatter: () => "", // 👈 remove the series name if you want just the number
-        },
-      },
+      marker: { show: true }
     },
     dataLabels: { enabled: false },
   };

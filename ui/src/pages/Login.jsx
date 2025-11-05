@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
 
+import { ReactComponent as CoinGeckoIcon } from "../assets/icons/coingecko.svg";
+
 import "../styles/Login.css"
 
 import Chart from "react-apexcharts";
@@ -145,6 +147,20 @@ export default function Login() {
             >
               Register
             </button>
+          </div>
+
+          <hr className="divider-line" />
+
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <p style={{ margin: 0 }}>Powered by </p>
+            <CoinGeckoIcon style={{
+              width: "6rem",
+              height: "6rem",
+              color: "var(--app-color-50)",
+              display: "inline-block",
+              verticalAlign: 'middle',
+              transform: 'translateY(1px)'
+            }} />
           </div>
         </div>
       </div>
