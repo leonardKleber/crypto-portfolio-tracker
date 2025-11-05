@@ -6,7 +6,7 @@ import os
 from flask_cors import CORS
 
 from flask import Flask, request, jsonify, session
-from src import create_db, create_user, get_user, get_dashboard_data
+from src import create_db, create_user, get_user, get_dashboard_data, get_transactions, new_get_dashboard_data
 
 
 app = Flask(__name__)
@@ -75,9 +75,12 @@ def dashboard():
     data = request.get_json()
 
     if not data or "username" not in data:
-        return jsonify({"error": "Missing 'username' in request body"}), 400
+        return jsonify(
+            {"error": "Missing 'username' in request body"}
+        ), 400
     
     user_data = get_user(username=data["username"])
+
     return get_dashboard_data(user_id=user_data[0])
 
 

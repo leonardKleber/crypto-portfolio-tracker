@@ -1,3 +1,6 @@
+from src.db import get_transactions
+
+
 def get_dashboard_data(user_id):
     return {
         "eur_per_asset": [3000.00, 1500.00],

@@ -1,5 +1,5 @@
-# crypto-portfolio-tracker
-An easy-to-use tool to track the performance of your crypto assets.
+# Invertym — A Crypto Portfolio Tracker
+Track your crypto portfolio effortlessly — analyze performance, monitor returns, and stay in control of your investments.
 
 ## Create `.env` Files
 
