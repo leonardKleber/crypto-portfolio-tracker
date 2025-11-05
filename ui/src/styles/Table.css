@@ -1,5 +1,9 @@
 .table-container {
-  padding-right: 60px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  background-color: var(--app-color-900);
+  overflow: hidden;
+  border-radius: 4px;
+  margin-right: 30px;
 }
 
 .data-table {

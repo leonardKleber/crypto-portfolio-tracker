@@ -149,7 +149,15 @@ export default function Login() {
             </button>
           </div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <div 
+            style={{ 
+              display: "flex", 
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "0.5rem", 
+              width: "100%" 
+            }}
+          >
             <p style={{ margin: 0, color: "var(--app-color-400)" }}>Powered by </p>
             <CoinGeckoIcon style={{
               width: "6rem",
