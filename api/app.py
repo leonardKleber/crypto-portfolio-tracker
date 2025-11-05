@@ -6,7 +6,7 @@ import os
 from flask_cors import CORS
 
 from flask import Flask, request, jsonify, session
-from src import create_db, create_user, get_user, get_dashboard_data, get_transactions, new_get_dashboard_data
+from src import create_db, get_user, get_dashboard_data
 
 
 app = Flask(__name__)
