@@ -12,10 +12,13 @@ export default function AreaChart({ chartHeight, lineChartWidth, lineSeries, cat
     xaxis: {
       categories: categories,
       labels: {
-        style: {
-          colors: "var(--app-color-50)",
-          fontSize: "0.75rem",
-        },
+        show: false, // ✅ hides numbers/text
+      },
+      axisTicks: {
+        show: false, // ✅ hides small tick marks
+      },
+      axisBorder: {
+        show: false, // ✅ hides bottom axis line
       },
     },
     yaxis: {
@@ -47,6 +50,12 @@ export default function AreaChart({ chartHeight, lineChartWidth, lineSeries, cat
       theme: "dark",
       style: { fontSize: "12px", fontFamily: "Arial, sans-serif" },
       marker: { show: true },
+      y: {
+        formatter: (val) => `${val.toFixed(2)}`, // 👈 show formatted y value
+        title: {
+          formatter: () => "", // 👈 remove the series name if you want just the number
+        },
+      },
     },
     dataLabels: { enabled: false },
   };

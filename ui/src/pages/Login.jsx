@@ -13,6 +13,8 @@ const SAMPLE_SERIES = [
   }
 ]
 
+const SAMPLE_CATEGORIES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
 const AREA_OPTIONS = {
   chart: {
     id: "area-chart",
@@ -20,13 +22,10 @@ const AREA_OPTIONS = {
     height: "300px",
   },
   xaxis: {
-    categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    labels: {
-      style: {
-        colors: "var(--app-color-50)",
-        fontSize: "0.75rem",
-      },
-    },
+    categories: SAMPLE_CATEGORIES,
+    labels: { show: false },
+    axisTicks: { show: false },
+    axisBorder: { show: false },
   },
   yaxis: {
     labels: {
