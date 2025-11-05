@@ -3,3 +3,5 @@ from .db import (
     create_user,
     get_user
 )
+
+from .dashboard import get_dashboard_data

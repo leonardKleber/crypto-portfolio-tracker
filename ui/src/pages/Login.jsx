@@ -149,14 +149,12 @@ export default function Login() {
             </button>
           </div>
 
-          <hr className="divider-line" />
-
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <p style={{ margin: 0 }}>Powered by </p>
+            <p style={{ margin: 0, color: "var(--app-color-400)" }}>Powered by </p>
             <CoinGeckoIcon style={{
               width: "6rem",
               height: "6rem",
-              color: "var(--app-color-50)",
+              color: "var(--app-color-400)",
               display: "inline-block",
               verticalAlign: 'middle',
               transform: 'translateY(1px)'

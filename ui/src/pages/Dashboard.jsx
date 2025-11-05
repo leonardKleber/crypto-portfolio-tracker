@@ -4,6 +4,11 @@ import SummaryTable from "../components/SummaryTable";
 import Table from "../components/Table"
 import "../styles/Dashboard.css"
 
+import { useAuth } from "../AuthContext";
+import { useEffect, useState } from "react";
+
+const API_BASE_URL = process.env.REACT_APP_PROJECT_API_URL;
+
 const CHART_HEIGHT = 400
 const LINE_CHART_WIDTH = 600
 
@@ -11,39 +16,46 @@ const BUTTON_ROW_WIDTH = 400
 const BUTTON_WIDTH = BUTTON_ROW_WIDTH / 8
 const BUTTON_MARGIN_RIGHT = (BUTTON_ROW_WIDTH - BUTTON_WIDTH * 4) / 3
 
+const DEFAULT_API_DATA = {
+  "eur_per_asset": [0.00],
+  "assets": ["N/A"],
+  "portfolio_value": 0.00,
+  "relative_return": 0.00,
+  "nominal_return": 0.00,
+  "line_x_data": [{ name: "Portfolio Value", data: [0.00] } ],
+  "line_y": ["N/A"],
+  "table_data": [{
+    "name": "N/A",
+    "amount": 0.00,
+    "value": 0.00,
+    "profit": 0.00,
+    "return": 0.00,
+    "allocation": 0.00
+  }]
+}
+
 export default function Dashboard() {
-  const api_data = {
-    "eur_per_asset": [3000.00, 1500.00],
-    "assets": ["Bitcoin", "Ethereum"],
-    "portfolio_value": 4500.00,
-    "relative_return": 22.22,
-    "nominal_return": 1000.00,
-    "line_x_data": [
-      { 
-        name: "Portfolio Value", 
-        data: [-1000.00, -500.00, 0.00, 200.00, 500.00, 300.00, 500.00, 800.00, 3000.00, 2500.00, 3500.00, 3200.00, 4000.00, 3800.00, 4500.00]
-      }
-    ],
-    "line_y": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan-2", "Feb-2", "Mar-2"],
-    "table_data": [
-      {
-        "name": "Bitcoin",
-        "amount": 0.03,
-        "value": 3000.00,
-        "profit": 500.00,
-        "return": 20.00,
-        "allocation": 66.66
-      },
-      {
-        "name": "Ethereum",
-        "amount": 1,
-        "value": 1500.00,
-        "profit": 500.00,
-        "return": 14.00,
-        "allocation": 33.34
-      },
-    ]
-  }
+  const { user } = useAuth();
+  const [dashboardData, setDashboardData] = useState(DEFAULT_API_DATA);
+
+  useEffect(() => {
+    const fetchDashboardData = async () => {
+      const response = await fetch(`${API_BASE_URL}/dashboard`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username: user }),
+      });
+
+      const data = await response.json();
+      setDashboardData(data);
+    };
+
+    fetchDashboardData();
+  }, [user]);
+
+  const api_data = dashboardData
 
   return (
     <div>

@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 
-const API_BASE_URL = "http://localhost:5000"
+const API_BASE_URL = process.env.REACT_APP_PROJECT_API_URL;
 
 const AuthContext = createContext();
 
@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify({ username, password }), // changed here
+        body: JSON.stringify({ username, password }),
     });
     const data = await res.json();
     if (res.ok) {

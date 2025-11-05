@@ -6,7 +6,7 @@ import os
 from flask_cors import CORS
 
 from flask import Flask, request, jsonify, session
-from src import create_db, create_user, get_user
+from src import create_db, create_user, get_user, get_dashboard_data
 
 
 app = Flask(__name__)
@@ -64,6 +64,21 @@ Logs out the current user by clearing their session data.
 def logout():
     session.pop("user", None)
     return jsonify({"message": "Logged out"})
+
+
+"""
+Returns the user's cumulative data to build their dashboard. Expects a
+JSON body with a 'username' field.
+"""
+@app.post("/dashboard")
+def dashboard():
+    data = request.get_json()
+
+    if not data or "username" not in data:
+        return jsonify({"error": "Missing 'username' in request body"}), 400
+    
+    user_data = get_user(username=data["username"])
+    return get_dashboard_data(user_id=user_data[0])
 
 
 if __name__ == '__main__':
