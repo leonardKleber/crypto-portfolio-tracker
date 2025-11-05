@@ -1,16 +1,19 @@
 """
 This file defines all endpoints for the backend API.
 """
-from flask import Flask, request, jsonify, session
+import os
+
 from flask_cors import CORS
+
+from flask import Flask, request, jsonify, session
+from src import create_db, create_user, get_user
 
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 app.secret_key = "supersecret"
-
-# Temporary fake "user database"
-users = {"Leonard": {"password": "fishtank"}}
+if not os.path.exists("Db.db"):
+    create_db()
 
 
 """
@@ -30,7 +33,8 @@ def login():
     username = data.get("username")
     password = data.get("password")
 
-    if username in users and users[username]["password"] == password:
+    response = get_user(username=username)
+    if response and response[2] == password:
         session["user"] = username
         return jsonify({
             "message": "Login successful", 
