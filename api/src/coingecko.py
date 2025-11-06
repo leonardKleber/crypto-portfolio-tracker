@@ -63,11 +63,9 @@ def get_current_prices():
         params=params
     )
     if response.status_code == 200:
-        result = []
+        result = {}
         for coin in response.json():
-            result.append({
-                coin: response.json()[coin][PROJECT_CURRENCY]
-            })
+            result[coin] = response.json()[coin][PROJECT_CURRENCY]
         return result
     else:
         return None

@@ -12,9 +12,9 @@ const API_BASE_URL = process.env.REACT_APP_PROJECT_API_URL;
 const CHART_HEIGHT = 400
 const LINE_CHART_WIDTH = 600
 
-const BUTTON_ROW_WIDTH = 400
-const BUTTON_WIDTH = BUTTON_ROW_WIDTH / 8
-const BUTTON_MARGIN_RIGHT = (BUTTON_ROW_WIDTH - BUTTON_WIDTH * 4) / 3
+// const BUTTON_ROW_WIDTH = 400
+// const BUTTON_WIDTH = BUTTON_ROW_WIDTH / 8
+// const BUTTON_MARGIN_RIGHT = (BUTTON_ROW_WIDTH - BUTTON_WIDTH * 4) / 3
 
 const DEFAULT_API_DATA = {
   "eur_per_asset": [0.00],
@@ -76,7 +76,7 @@ export default function Dashboard() {
             lineSeries={api_data.line_x_data}
             categories={api_data.line_y}
           />
-
+          {/*
           <div style={{ display: "flex", gap: "10px" }}>
             <button 
               style={{ width: `${BUTTON_WIDTH}px`, marginRight: `${BUTTON_MARGIN_RIGHT}px` }}
@@ -103,13 +103,14 @@ export default function Dashboard() {
               All
             </button>
           </div>
+          */}
         </div>
       </div>
     
       <SummaryTable
         portfolio_value={api_data.portfolio_value}
-        relative_return={api_data.relative_return}
-        nominal_return={api_data.nominal_return}
+        total_return={api_data.total_return}
+        realized_return={api_data.realized_return}
       />
 
       <h1 className="heading-two">Holdings</h1>

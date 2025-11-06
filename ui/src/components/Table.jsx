@@ -10,9 +10,8 @@ export default function Table({ table_data }) {
           <tr className="table-header-row">
             <th className="table-header-cell name-col">Name</th>
             <th className="table-header-cell">Amount</th>
-            <th className="table-header-cell">Total Value</th>
-            <th className="table-header-cell">Nominal Return</th>
-            <th className="table-header-cell">Relative Return</th>
+            <th className="table-header-cell">Value</th>
+            <th className="table-header-cell">Return</th>
             <th className="table-header-cell">Allocation</th>
           </tr>
         </thead>
@@ -33,11 +32,10 @@ export default function Table({ table_data }) {
                 />
                 {item.name}
                 </td>
-              <td className="table-cell">{item.amount}</td>
-              <td className="table-cell">{item.value.toFixed(2)}€</td>
-              <td className="table-cell">{item.profit.toFixed(2)}€</td>
-              <td className="table-cell">{item.return.toFixed(2)}%</td>
-              <td className="table-cell">{item.allocation.toFixed(2)}%</td>
+              <td className="table-cell">{item.amount ? item.amount.toFixed(6) : "0"}</td>
+              <td className="table-cell">{item.value ? item.value.toFixed(2) : "0"}€</td>
+              <td className="table-cell">{item.unrealized_return ? item.unrealized_return.toFixed(2) : "0"}%</td>
+              <td className="table-cell">{item.allocation ? item.allocation.toFixed(2) : "0"}%</td>
             </tr>
           ))}
         </tbody>

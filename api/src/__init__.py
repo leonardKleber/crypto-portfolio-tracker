@@ -5,6 +5,6 @@ from .db import (
     get_transactions
 )
 
-from .dashboard import (
-    get_dashboard_data
-)
+from .dashboard import Dashboard
+
+from .coingecko import get_current_prices

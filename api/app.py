@@ -6,7 +6,7 @@ import os
 from flask_cors import CORS
 
 from flask import Flask, request, jsonify, session
-from src import create_db, get_user, get_dashboard_data
+from src import create_db, get_user, Dashboard
 
 
 app = Flask(__name__)
@@ -81,7 +81,8 @@ def dashboard():
     
     user_data = get_user(username=data["username"])
 
-    return get_dashboard_data(user_id=user_data[0])
+    dashboard = Dashboard(user_id=user_data[0])
+    return dashboard.get_dashboard_data()
 
 
 if __name__ == '__main__':
