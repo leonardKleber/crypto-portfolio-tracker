@@ -7,4 +7,7 @@ from .db import (
 
 from .dashboard import Dashboard
 
-from .coingecko import get_current_prices
+from .coingecko import (
+    get_current_prices,
+    get_historic_data
+)

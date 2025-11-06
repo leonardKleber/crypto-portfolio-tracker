@@ -75,11 +75,11 @@ def create_db():
     )
     cursor.execute(
         INSERT_TRANSACTION, 
-        (1, "ethereum", 1, 3089.71, "buy", "2025-20-07")
+        (1, "ethereum", 1, 3089.71, "buy", "2025-07-20")
     )
     cursor.execute(
         INSERT_TRANSACTION, 
-        (1, "ethereum", 0.5, 3906.20, "sell", "2025-15-08")
+        (1, "ethereum", 0.5, 3906.20, "sell", "2025-08-15")
     )
     
     conn.commit()

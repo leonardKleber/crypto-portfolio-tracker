@@ -1,7 +1,8 @@
 from .db import get_transactions
-from .coingecko import get_current_prices
+from .coingecko import get_current_prices, get_historic_data
 
 from collections import defaultdict
+from datetime import datetime, timedelta, date
 
 
 class Dashboard:
@@ -63,13 +64,13 @@ class Dashboard:
             return_total_abs = realized_return + unrealized_return_abs
             return_total_pct = return_total_abs / total_invested * 100
             result[asset] = {
-                "total_invested": round(total_invested, 2),
-                "current_value": round(total_value, 2),
-                "current_amount": round(total_amount, 6),
-                "realized_return": round(realized_return, 2),
-                "unrealized_return_abs": round(unrealized_return_abs, 2),
-                "unrealized_return_pct": round(unrealized_return_pct, 2),
-                "return_total_pct": round(return_total_pct, 2)
+                "total_invested": total_invested,
+                "current_value": total_value,
+                "current_amount": total_amount,
+                "realized_return": realized_return,
+                "unrealized_return_abs": unrealized_return_abs,
+                "unrealized_return_pct": unrealized_return_pct,
+                "return_total_pct": return_total_pct
             }
         return result
     
@@ -130,10 +131,106 @@ class Dashboard:
             "total_return": round(portfolio_return_pct, 2),
             "realized_return": round(total_realized, 2),
         }
+    
+
+    """
+    Generates a time series of each asset's value over the past year.
+
+    The function first constructs a historical time series of asset
+    holdings (amount per asset by date) and multiplies these holdings
+    by corresponding historical price data for each date. It then
+    aggregates the results into a 356-point series representing the
+    portfolio’s daily value development over the last year. 
+
+    Note:
+    Due to CoinGecko API limitations, the view is restricted to a 1-year
+    period.
+    """
+    def get_historic_data(self):
+        data = self.clean_transactions()
+
+        today = date.today()
+        result = {}
+
+        # Compute holdings list
+        for asset in data:
+            transactions = sorted(
+                data[asset], 
+                key=lambda x: datetime.strptime(x[3], "%Y-%m-%d").date()
+            )
+            start_date = datetime.strptime(transactions[0][3], "%Y-%m-%d").date()
+            num_days = (today - start_date).days + 1
+            daily_holdings = [0.0] * num_days
+            current_amount = 0.0
+            for amount, _, ttype, tdate in transactions:
+                tdate = datetime.strptime(tdate, "%Y-%m-%d").date()
+                day_index = (tdate - start_date).days
+                if ttype == "buy":
+                    current_amount = current_amount + amount
+                elif ttype == "sell":
+                    current_amount = current_amount - amount
+                for i in range(day_index, num_days):
+                    daily_holdings[i] = current_amount
+            result[asset] = self.scale_to_356_points(daily_holdings)
+        
+        # Get historic data
+        prices = {}
+        for asset in result:
+            prices[asset] = get_historic_data(coin_id=asset)
+        
+        # Create scaled values
+        scaled_values = {}
+        for asset in result:
+            final_values = []
+            for i in range(356):
+                final_values.append(
+                    result[asset][i] * prices[asset][i][1]
+                )
+            scaled_values[asset] = final_values
+        
+        # Sum all together
+        lists = list(scaled_values.values())
+        length = len(lists[0])
+        final_time_series = [round(sum(values[i] for values in lists), 2) for i in range(length)]
+
+        return {
+            "x": final_time_series,
+            "y": self.generate_date_list()
+        }
+
+
+    """
+    Ensures the holdings list has exactly 356 entries. If shorter, pads
+    with zeros at the beginning and if longer, trims from the start
+    (keeps last 356 elements).
+    """
+    def scale_to_356_points(self, holdings_list):
+        target_length = 356
+        current_length = len(holdings_list)
+        if current_length == target_length:
+            return holdings_list
+        elif current_length > target_length:
+            return holdings_list[-target_length:]
+        else:
+            padding = [0.0] * (target_length - current_length)
+            return padding + holdings_list
+        
+
+    """
+    Generates a list of dates ending today and going back `days` days.
+    The most recent date (today) is last in the list.
+    """
+    def generate_date_list(self, days=356):
+        today = date.today()
+        return [
+            (today - timedelta(days=i)).strftime("%Y-%m-%d")
+            for i in range(days - 1, -1, -1)
+        ]
 
 
     def get_dashboard_data(self):
         portfolio_return = self.get_portfolio_return()
+        chart_data = self.get_historic_data()
         return {
             "eur_per_asset": self.get_eur_per_asset(),
             "assets": self.get_assets(),
@@ -143,9 +240,9 @@ class Dashboard:
             "line_x_data": [
                 { 
                     "name": "Portfolio Value", 
-                    "data": [-1000.00, -500.00, -1500.00, -2500.00, -500.00, 300.00, 500.00, 800.00, 3000.00, 2500.00, 3500.00, 3200.00, 4000.00, 3800.00, 4500.00]
+                    "data": chart_data["x"]
                 }
             ],
-            "line_y": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan-2", "Feb-2", "Mar-2"],
+            "line_y": chart_data["y"],
             "table_data": self.get_table_data()
         }
