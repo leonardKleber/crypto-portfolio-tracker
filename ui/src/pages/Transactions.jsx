@@ -53,14 +53,77 @@ export default function Transactions() {
 
               {Array.isArray(transactions) &&
                 transactions.map((tx, j) => (
-                  <div className="table-container">
-                    <table className="data-table">
+                  <div style={{
+                    boxShadow: "0 10px 30px rgba(0, 0, 0, 0.3)",
+                    backgroundColor: "var(--app-color-900)",
+                    overflow: "hidden",
+                    borderRadius: "4px",
+                    marginRight: "30px",
+                  }}>
+                    <table style={{
+                      width: "100%",
+                      borderCollapse: "collapse",
+                      borderSpacing: "0",
+                    }}>
                       <tbody>
-                        <tr className="table-body-row">
-                          <td className="table-cell" style={{ width: "25%" }}>{tx.type.toUpperCase()}</td>
-                          <td className="table-cell" style={{ width: "25%" }}>{tx.asset.toUpperCase()}</td>
-                          <td className="table-cell" style={{ width: "25%" }}>Amount<br/>{tx.amount}</td>
-                          <td className="table-cell" style={{ width: "25%" }}>Value<br/>{tx.value}</td>
+                        <tr style={{
+                          backgroundColor: "var(--app-color-900)",
+                          borderTop: "2px solid var(--app-color-800)",
+                        }}>
+                          <td style={{ 
+                            width: "25%",
+                            textAlign: "left",
+                            padding: "16px",
+                            paddingLeft: "24px",
+                            fontWeight: "normal",
+                            fontSize: "1rem",
+                          }}>
+                            {tx.type.toUpperCase()}
+                          </td>
+                          <td style={{ 
+                            width: "25%",
+                            textAlign: "left",
+                            padding: "16px",
+                            paddingLeft: "24px",
+                            fontWeight: "normal",
+                            fontSize: "1rem",
+                          }}>
+                            {tx.asset.toUpperCase()}
+                          </td>
+                          <td style={{ 
+                            width: "25%",
+                            textAlign: "left",
+                            padding: "16px",
+                            paddingLeft: "24px",
+                            fontWeight: "normal",
+                            fontSize: "1rem",
+                          }}>
+                            <p style={{
+                              color: "var(--app-color-300)",
+                              padding: "0",
+                              margin: "0 0 4px 0"
+                            }}>
+                              Amount
+                            </p>
+                            {tx.amount.toFixed(6)}
+                          </td>
+                          <td style={{ 
+                            width: "25%",
+                            textAlign: "left",
+                            padding: "16px",
+                            paddingLeft: "24px",
+                            fontWeight: "normal",
+                            fontSize: "1rem",
+                          }}>
+                            <p style={{
+                              color: "var(--app-color-300)",
+                              padding: "0",
+                              margin: "0 0 4px 0"
+                            }}>
+                              Value
+                            </p>
+                            {tx.value.toFixed(2)}€
+                          </td>
                         </tr>
                       </tbody>
                     </table>
