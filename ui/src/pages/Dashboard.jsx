@@ -55,8 +55,6 @@ export default function Dashboard() {
     fetchDashboardData();
   }, [user]);
 
-  const api_data = dashboardData
-
   return (
     <div>
       <h1 className="heading-one">Dashboard</h1>
@@ -64,17 +62,17 @@ export default function Dashboard() {
       <div style={{ display: "flex", gap: "50px" }}>
         <PieChart 
           chartHeight={CHART_HEIGHT} 
-          pieSeries={api_data.eur_per_asset}
-          pieLabels={api_data.assets}
-          totalValue={api_data.portfolio_value}
+          pieSeries={dashboardData.eur_per_asset}
+          pieLabels={dashboardData.assets}
+          totalValue={dashboardData.portfolio_value}
         />
 
         <div style={{ width: `${LINE_CHART_WIDTH}px` }}>
           <LineChart 
             chartHeight={CHART_HEIGHT}
             lineChartWidth={LINE_CHART_WIDTH}
-            lineSeries={api_data.line_x_data}
-            categories={api_data.line_y}
+            lineSeries={dashboardData.line_x_data}
+            categories={dashboardData.line_y}
           />
           {/*
           <div style={{ display: "flex", gap: "10px" }}>
@@ -108,15 +106,15 @@ export default function Dashboard() {
       </div>
     
       <SummaryTable
-        portfolio_value={api_data.portfolio_value}
-        total_return={api_data.total_return}
-        realized_return={api_data.realized_return}
+        portfolio_value={dashboardData.portfolio_value}
+        total_return={dashboardData.total_return}
+        realized_return={dashboardData.realized_return}
       />
 
       <h1 className="heading-two">Holdings</h1>
 
       <Table 
-        table_data={api_data.table_data}
+        table_data={dashboardData.table_data}
       />
 
     </div>

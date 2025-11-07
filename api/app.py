@@ -6,7 +6,7 @@ import os
 from flask_cors import CORS
 
 from flask import Flask, request, jsonify, session
-from src import create_db, get_user, Dashboard
+from src import create_db, get_user, Dashboard, get_transactions_json
 
 
 app = Flask(__name__)
@@ -32,7 +32,6 @@ def login():
     data = request.json
     username = data.get("username")
     password = data.get("password")
-
     response = get_user(username=username)
     if response and response[2] == password:
         session["user"] = username
@@ -73,16 +72,24 @@ JSON body with a 'username' field.
 @app.post("/dashboard")
 def dashboard():
     data = request.get_json()
-
     if not data or "username" not in data:
         return jsonify(
             {"error": "Missing 'username' in request body"}
         ), 400
-    
     user_data = get_user(username=data["username"])
-
     dashboard = Dashboard(user_id=user_data[0])
     return dashboard.get_dashboard_data()
+
+
+@app.post("/transactions")
+def transactions():
+    data = request.get_json()
+    if not data or "username" not in data:
+        return jsonify(
+            {"error": "Missing 'username' in request body"}
+        ), 400
+    user_data = get_user(username=data["username"])
+    return get_transactions_json(user_id=user_data[0])
 
 
 if __name__ == '__main__':
