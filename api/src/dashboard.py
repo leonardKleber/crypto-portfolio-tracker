@@ -10,12 +10,12 @@ class Dashboard:
         self.user_id = user_id
         self.transactions = get_transactions(user_id=self.user_id)
         self.current_prices = get_current_prices()
+        self.transactions = self.clean_transactions()
+        self.data = self.avg_cost_asset_performance()
 
 
     def clean_transactions(self):
-        # Remove user ID and transaction ID
         trimmed = [tran[2:] for tran in self.transactions]
-        # Group by asset
         grouped = defaultdict(list)
         for tran in trimmed:
             key = tran[0]
@@ -28,13 +28,12 @@ class Dashboard:
     Average Cost Method
     """
     def avg_cost_asset_performance(self):
-        data = self.clean_transactions()
         result = {}
-        for asset in data:
-            transactions = data[asset]
+        for asset in self.transactions:
+            transactions = self.transactions[asset]
             total_value = 0
             total_amount = 0
-            total_invested = 0 # What the user has invested in total
+            total_invested = 0
             realized_return = 0
             for tran in transactions:
                 if tran[2] == "buy":
@@ -45,13 +44,10 @@ class Dashboard:
                     avg_buy_price = total_value / total_amount
                     sell_value = tran[1]
                     sell_amount = tran[0]
-                    # Book realized return
                     cost_basis = avg_buy_price * sell_amount
                     realized_return = realized_return + (sell_value - cost_basis)
-                    # Reduce total holdings
                     total_value = total_value - cost_basis
                     total_amount = total_amount - sell_amount
-            # Compute unrealized return
             if total_amount > 0:
                 current_price = 0
                 for entry in self.current_prices:
@@ -76,55 +72,50 @@ class Dashboard:
     
 
     def get_portfolio_value(self):
-        data = self.avg_cost_asset_performance()
         total_value = 0
-        for asset in data:
-            total_value = total_value + data[asset]["current_value"]
+        for asset in self.data:
+            total_value = total_value + self.data[asset]["current_value"]
         return total_value
     
 
     def get_table_data(self):
-        data = self.avg_cost_asset_performance()
         portfolio_value = self.get_portfolio_value()
         result = []
-        for asset in data:
+        for asset in self.data:
             allocation = round(
-                data[asset]["current_value"] / portfolio_value,
+                self.data[asset]["current_value"] / portfolio_value,
                 2
             )
             result.append({
                 "name": asset.upper(),
-                "amount": data[asset]["current_amount"],
-                "value": data[asset]["current_value"],
-                "return_total_pct": data[asset]["return_total_pct"],
-                "unrealized_return": data[asset]["unrealized_return_pct"],
-                "realized_return": data[asset]["realized_return"],
+                "amount": self.data[asset]["current_amount"],
+                "value": self.data[asset]["current_value"],
+                "return_total_pct": self.data[asset]["return_total_pct"],
+                "unrealized_return": self.data[asset]["unrealized_return_pct"],
+                "realized_return": self.data[asset]["realized_return"],
                 "allocation": allocation
             })
         return result
     
 
     def get_eur_per_asset(self):
-        data = self.avg_cost_asset_performance()
         result = []
-        for asset in data:
-            result.append(data[asset]["current_value"])
+        for asset in self.data:
+            result.append(self.data[asset]["current_value"])
         return result
     
 
     def get_assets(self):
-        data = self.avg_cost_asset_performance()
         result = []
-        for asset in data:
+        for asset in self.data:
             result.append(asset.upper())
         return result
     
 
     def get_portfolio_return(self):
-        data = self.avg_cost_asset_performance()
-        total_invested = sum(a['total_invested'] for a in data.values())
-        total_realized = sum(a['realized_return'] for a in data.values())
-        total_unrealized = sum(a['unrealized_return_abs'] for a in data.values())
+        total_invested = sum(a['total_invested'] for a in self.data.values())
+        total_realized = sum(a['realized_return'] for a in self.data.values())
+        total_unrealized = sum(a['unrealized_return_abs'] for a in self.data.values())
         total_return_abs = total_realized + total_unrealized
         portfolio_return_pct = (total_return_abs / total_invested * 100)
         return {
@@ -147,22 +138,18 @@ class Dashboard:
     period.
     """
     def get_historic_data(self):
-        data = self.clean_transactions()
-
         today = date.today()
         result = {}
-
-        # Compute holdings list
-        for asset in data:
-            transactions = sorted(
-                data[asset], 
+        for asset in self.transactions:
+            trans = sorted(
+                self.transactions[asset], 
                 key=lambda x: datetime.strptime(x[3], "%Y-%m-%d").date()
             )
-            start_date = datetime.strptime(transactions[0][3], "%Y-%m-%d").date()
+            start_date = datetime.strptime(trans[0][3], "%Y-%m-%d").date()
             num_days = (today - start_date).days + 1
             daily_holdings = [0.0] * num_days
             current_amount = 0.0
-            for amount, _, ttype, tdate in transactions:
+            for amount, _, ttype, tdate in trans:
                 tdate = datetime.strptime(tdate, "%Y-%m-%d").date()
                 day_index = (tdate - start_date).days
                 if ttype == "buy":
@@ -172,13 +159,9 @@ class Dashboard:
                 for i in range(day_index, num_days):
                     daily_holdings[i] = current_amount
             result[asset] = self.scale_to_356_points(daily_holdings)
-        
-        # Get historic data
         prices = {}
         for asset in result:
             prices[asset] = get_historic_data(coin_id=asset)
-        
-        # Create scaled values
         scaled_values = {}
         for asset in result:
             final_values = []
@@ -187,12 +170,9 @@ class Dashboard:
                     result[asset][i] * prices[asset][i][1]
                 )
             scaled_values[asset] = final_values
-        
-        # Sum all together
         lists = list(scaled_values.values())
         length = len(lists[0])
         final_time_series = [round(sum(values[i] for values in lists), 2) for i in range(length)]
-
         return {
             "x": final_time_series,
             "y": self.generate_date_list()
