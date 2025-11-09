@@ -51,21 +51,21 @@ export default function Transactions() {
                 {date}
               </p>
 
-              {Array.isArray(transactions) &&
-                transactions.map((tx, j) => (
-                  <div style={{
-                    boxShadow: "0 10px 30px rgba(0, 0, 0, 0.3)",
-                    backgroundColor: "var(--app-color-900)",
-                    overflow: "hidden",
-                    borderRadius: "4px",
-                    marginRight: "30px",
-                  }}>
-                    <table style={{
-                      width: "100%",
-                      borderCollapse: "collapse",
-                      borderSpacing: "0",
-                    }}>
-                      <tbody>
+              <div style={{
+                boxShadow: "0 10px 30px rgba(0, 0, 0, 0.3)",
+                backgroundColor: "var(--app-color-900)",
+                overflow: "hidden",
+                borderRadius: "4px",
+                marginRight: "30px",
+              }}>
+                <table style={{
+                  width: "100%",
+                  borderCollapse: "collapse",
+                  borderSpacing: "0",
+                }}>
+                  <tbody>
+                    {Array.isArray(transactions) &&
+                      transactions.map((tx, j) => (
                         <tr style={{
                           backgroundColor: "var(--app-color-900)",
                           borderTop: "2px solid var(--app-color-800)",
@@ -125,10 +125,12 @@ export default function Transactions() {
                             {tx.value.toFixed(2)}€
                           </td>
                         </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                ))}
+
+
+                      ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           );
         })

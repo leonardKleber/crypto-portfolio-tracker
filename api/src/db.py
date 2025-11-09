@@ -75,6 +75,10 @@ def create_db():
     )
     cursor.execute(
         INSERT_TRANSACTION, 
+        (1, "bitcoin", 0.02073220, 2000.00, "buy", "2025-10-14")
+    )
+    cursor.execute(
+        INSERT_TRANSACTION, 
         (1, "ethereum", 1, 3089.71, "buy", "2025-07-20")
     )
     cursor.execute(
