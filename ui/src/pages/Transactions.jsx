@@ -1,7 +1,7 @@
 import { useAuth } from "../AuthContext";
 import { useEffect, useState } from "react";
 
-import "../styles/Table.css";
+import "../styles/Transactions.css";
 
 const API_BASE_URL = process.env.REACT_APP_PROJECT_API_URL;
 
@@ -43,83 +43,30 @@ export default function Transactions() {
           const [date, transactions] = Object.entries(entry)[0];
           return (
             <div key={i} style={{ marginBottom: "20px" }}>
-              <p style={{ 
-                color: "var(--app-color-300)",
-                fontSize: "1rem",
-                fontWeight: "normal", 
-              }}>
+              <p style={{ color: "var(--app-color-300)" }}>
                 {date}
               </p>
 
-              <div style={{
-                boxShadow: "0 10px 30px rgba(0, 0, 0, 0.3)",
-                backgroundColor: "var(--app-color-900)",
-                overflow: "hidden",
-                borderRadius: "4px",
-                marginRight: "30px",
-              }}>
-                <table style={{
-                  width: "100%",
-                  borderCollapse: "collapse",
-                  borderSpacing: "0",
-                }}>
+              <div className="table-container">
+                <table className="trans-table">
                   <tbody>
                     {Array.isArray(transactions) &&
                       transactions.map((tx, j) => (
-                        <tr style={{
-                          backgroundColor: "var(--app-color-900)",
-                          borderTop: "2px solid var(--app-color-800)",
-                        }}>
-                          <td style={{ 
-                            width: "25%",
-                            textAlign: "left",
-                            padding: "16px",
-                            paddingLeft: "24px",
-                            fontWeight: "normal",
-                            fontSize: "1rem",
-                          }}>
+                        <tr className="trans-tr">
+                          <td className="trans-td">
                             {tx.type.toUpperCase()}
                           </td>
-                          <td style={{ 
-                            width: "25%",
-                            textAlign: "left",
-                            padding: "16px",
-                            paddingLeft: "24px",
-                            fontWeight: "normal",
-                            fontSize: "1rem",
-                          }}>
+                          <td className="trans-td">
                             {tx.asset.toUpperCase()}
                           </td>
-                          <td style={{ 
-                            width: "25%",
-                            textAlign: "left",
-                            padding: "16px",
-                            paddingLeft: "24px",
-                            fontWeight: "normal",
-                            fontSize: "1rem",
-                          }}>
-                            <p style={{
-                              color: "var(--app-color-300)",
-                              padding: "0",
-                              margin: "0 0 4px 0"
-                            }}>
+                          <td className="trans-td">
+                            <p className="cell-header">
                               Amount
                             </p>
                             {tx.amount.toFixed(6)}
                           </td>
-                          <td style={{ 
-                            width: "25%",
-                            textAlign: "left",
-                            padding: "16px",
-                            paddingLeft: "24px",
-                            fontWeight: "normal",
-                            fontSize: "1rem",
-                          }}>
-                            <p style={{
-                              color: "var(--app-color-300)",
-                              padding: "0",
-                              margin: "0 0 4px 0"
-                            }}>
+                          <td className="trans-td">
+                            <p className="cell-header">
                               Value
                             </p>
                             {tx.value.toFixed(2)}€
