@@ -81,6 +81,11 @@
   padding: 8px;
   border-radius: 6px;
   cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submit-btn:hover {
+    background-color: var(--app-color-700);
 }
 
 .error-message {
@@ -88,4 +93,18 @@
   font-size: 14px;
   margin-top: 8px;
   text-align: center;
+}
+
+.add-button {
+    background-color: var(--app-color-500);
+    color: var(--app-color-50);
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.add-button:hover {
+    background-color: var(--app-color-700);
 }

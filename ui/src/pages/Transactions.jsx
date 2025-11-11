@@ -93,14 +93,7 @@ export default function Transactions() {
         <h1 style={{ fontSize: "24px", fontWeight: "bold" }}>Transactions</h1>
         <button
           onClick={() => setIsModalOpen(true)}
-          style={{
-            backgroundColor: "var(--app-color-500)",
-            color: "white",
-            border: "none",
-            borderRadius: "6px",
-            padding: "6px 12px",
-            cursor: "pointer",
-          }}
+          className="add-button"
         >
           + Add Transaction
         </button>
