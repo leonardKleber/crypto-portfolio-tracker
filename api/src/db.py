@@ -114,3 +114,21 @@ def get_transactions(user_id):
     transaction_data = cursor.fetchall()
     conn.close()
     return transaction_data
+
+
+def insert_transaction(
+    user_id, 
+    coin_id, 
+    amount, 
+    price, 
+    type, 
+    timestamp
+):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute(
+        INSERT_TRANSACTION, 
+        (user_id, coin_id, amount, price, type, timestamp,)
+    )
+    conn.commit()
+    conn.close()

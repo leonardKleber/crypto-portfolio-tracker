@@ -101,7 +101,7 @@ class Dashboard:
     def get_eur_per_asset(self):
         result = []
         for asset in self.data:
-            result.append(self.data[asset]["current_value"])
+            result.append(round(self.data[asset]["current_value"], 2))
         return result
     
 
