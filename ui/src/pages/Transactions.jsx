@@ -144,37 +144,47 @@ export default function Transactions() {
 
             <h2>Add Transaction</h2>
             <form onSubmit={handleAddTransaction} className="modal-form">
+              Date
               <input
                 name="date"
                 type="date"
+                className="modal-form-input"
                 value={formData.date}
                 onChange={handleFormChange}
                 required
               />
+              Type
               <input
                 name="type"
+                className="modal-form-input"
                 placeholder="Type (buy/sell)"
                 value={formData.type}
                 onChange={handleFormChange}
                 required
               />
+              Asset
               <input
                 name="asset"
+                className="modal-form-input"
                 placeholder="Asset"
                 value={formData.asset}
                 onChange={handleFormChange}
                 required
               />
+              Amount
               <input
                 name="amount"
+                className="modal-form-input"
                 type="number"
                 placeholder="Amount"
                 value={formData.amount}
                 onChange={handleFormChange}
                 required
               />
+              Value
               <input
                 name="value"
+                className="modal-form-input"
                 type="number"
                 placeholder="Value (€)"
                 value={formData.value}
