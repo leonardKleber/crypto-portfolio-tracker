@@ -93,6 +93,10 @@ def transactions():
     return get_transactions_json(user_id=user_data[0])
 
 
+"""
+This endpoint processes incoming transaction data from the user and
+inserts it into the database if the data is deemed valid.
+"""
 @app.post("/add-transaction")
 def add_transaction():
     data = request.get_json()
