@@ -7,7 +7,14 @@ from flask_cors import CORS
 from datetime import datetime
 
 from flask import Flask, request, jsonify, session
-from src import create_db, get_user, Dashboard, get_transactions_json, insert_transaction, SUPPORTED_COINS
+from src import (
+    create_db, 
+    get_user, 
+    Dashboard, 
+    get_transactions_json, 
+    insert_transaction, 
+    SUPPORTED_COINS
+)
 
 
 app = Flask(__name__)
@@ -100,28 +107,32 @@ inserts it into the database if the data is deemed valid.
 @app.post("/add-transaction")
 def add_transaction():
     data = request.get_json()
-
-    print(data)
-
-    required_fields = ["username", "type", "asset", "amount", "value", "date"]
+    required_fields = [
+        "username", 
+        "type", 
+        "asset", 
+        "amount", 
+        "value", 
+        "date"
+    ]
     for field in required_fields:
         if field not in data or data[field] in ("", None):
-            return jsonify({"message": f"Missing required field: {field}"}), 400
-        
-    # Check for valid user
+            return jsonify({
+                "message": f"Missing required field: {field}"
+            }), 400
     user_data = get_user(username=data["username"])
     if user_data is None:
         return jsonify({"message": f"User does not exist"}), 400
-    # Check for valid type
     if data["type"] != "buy" and data["type"] != "sell":
-        return jsonify({"message": f"{data["type"]} is not a valid transaction type"}), 400
-    # Check for valid coin id
+        return jsonify({
+            "message": f"{data["type"]} not a valid transaction type"
+        }), 400
     if not any(c["id"] == data["asset"] for c in SUPPORTED_COINS):
-        return jsonify({"message": f"{data['asset']} is not a valid asset"}), 400
-    # Convert date to iso.
+        return jsonify({
+            "message": f"{data['asset']} is not a valid asset"
+        }), 400
     dt = datetime.strptime(data["date"], "%Y-%m-%d")
     iso_str = dt.date().isoformat()
-
     insert_transaction(
         user_id=user_data[0],
         coin_id=data["asset"], 
@@ -130,7 +141,6 @@ def add_transaction():
         type=data["type"], 
         timestamp=iso_str
     )
-
     return jsonify({"message": "Transaction added successfully"}), 200
 
 if __name__ == '__main__':

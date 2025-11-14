@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
 
 import { ReactComponent as CoinGeckoIcon } from "../assets/icons/coingecko.svg";
+import { ReactComponent as WaveIcon } from "../assets/transitions/wave.svg";
 
 import "../styles/Login.css"
 
@@ -75,101 +76,134 @@ export default function Login() {
   };
 
   return (
-    <div className="main-container">
-      <div className="sub-main-container">
-        <div className="left-container">
-          <div className="left-container-heading-div">
-            <p style={{ margin: 0, paddingBottom: "0.5rem" }}>Your Crypto.</p>
-            <p style={{ margin: 0, paddingBottom: "0.5rem" }}>Your Insights.</p>
-            <p style={{ margin: 0, paddingBottom: "0.5rem" }}>One Dashboard.</p>
-          </div>
+    <div className="page-wrapper">
+      <section className="screen-section">
+        <div className="main-container">
+          <div className="sub-main-container">
+            <div className="left-container">
+              <div className="left-container-heading-div">
+                <p style={{ margin: 0, paddingBottom: "0.5rem" }}>Your Crypto.</p>
+                <p style={{ margin: 0, paddingBottom: "0.5rem" }}>Your Insights.</p>
+                <p style={{ margin: 0, paddingBottom: "0.5rem" }}>One Dashboard.</p>
+              </div>
 
-          <div style={{ width: "100%", height: "100%" }}>
-            <Chart
-              options={AREA_OPTIONS}
-              series={SAMPLE_SERIES}
-              type="area"
-              height="100%"
-            />
-          </div>
-        </div>
+              <div style={{ width: "100%", height: "100%" }}>
+                <Chart
+                  options={AREA_OPTIONS}
+                  series={SAMPLE_SERIES}
+                  type="area"
+                  height="100%"
+                />
+              </div>
+            </div>
 
-        <div className="right-container">
-          <div className="right-container-heading-div">
-            <p style={{ margin: 0 }}>
-              Welcome back!
-            </p>
-          </div>
+            <div className="right-container">
+              <div className="right-container-heading-div">
+                <p style={{ margin: 0 }}>
+                  Welcome back!
+                </p>
+              </div>
 
-          <div style={{ width: "100%" }}>
-            <form
-              onSubmit={handleSubmit}
-              className="login-form"
-            >
-              <label className="login-label">
-                Username
-              </label>
-              <input
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-                className="login-input-field"
-              />
-              <label className="login-label">
-                Password
-              </label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="login-input-field"
-              />
-              <button
-                type="submit"
-                className="login-button"
+              <div style={{ width: "100%" }}>
+                <form
+                  onSubmit={handleSubmit}
+                  className="login-form"
+                >
+                  <label className="login-label">
+                    Username
+                  </label>
+                  <input
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                    className="login-input-field"
+                  />
+                  <label className="login-label">
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="login-input-field"
+                  />
+                  <button
+                    type="submit"
+                    className="login-button"
+                  >
+                    Log In
+                  </button>
+                </form>
+              </div>
+
+              <hr className="divider-line" />
+
+              <div style={{ width: "100%" }}>
+                <p style={{ margin: "0 0 1rem 0" }}>
+                  Don’t have an account yet?
+                </p>
+                <button
+                  type="button"
+                  className="register-button"
+                >
+                  Register
+                </button>
+              </div>
+
+              <div 
+                style={{ 
+                  display: "flex", 
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "0.5rem", 
+                  width: "100%" 
+                }}
               >
-                Log In
-              </button>
-            </form>
-          </div>
-
-          <hr className="divider-line" />
-
-          <div style={{ width: "100%" }}>
-            <p style={{ margin: "0 0 1rem 0" }}>
-              Don’t have an account yet?
-            </p>
-            <button
-              type="button"
-              className="register-button"
-            >
-              Register
-            </button>
-          </div>
-
-          <div 
-            style={{ 
-              display: "flex", 
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "0.5rem", 
-              width: "100%" 
-            }}
-          >
-            <p style={{ margin: 0, color: "var(--app-color-400)" }}>Powered by </p>
-            <CoinGeckoIcon style={{
-              width: "6rem",
-              height: "6rem",
-              color: "var(--app-color-400)",
-              display: "inline-block",
-              verticalAlign: 'middle',
-              transform: 'translateY(1px)'
-            }} />
+                <p style={{ margin: 0, color: "var(--app-color-400)" }}>Powered by </p>
+                <CoinGeckoIcon style={{
+                  width: "6rem",
+                  height: "6rem",
+                  color: "var(--app-color-400)",
+                  display: "inline-block",
+                  verticalAlign: 'middle',
+                  transform: 'translateY(1px)'
+                }} />
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      <section className="screen-section second-section">
+        <WaveIcon className="top-wave-absolute" />
+
+        <div className="second-section-content register-container">
+
+          <h1 className="register-title">Register Now</h1>
+
+          <p className="register-subtext">
+            Create your account and start tracking your crypto portfolio in real time.
+            Stay organized, stay informed, and take control of your investments in one place.
+          </p>
+
+          <form className="register-form">
+            <label className="register-label">Username</label>
+            <input type="text" className="register-input" />
+
+            <label className="register-label">Password</label>
+            <input type="password" className="register-input" />
+
+            <label className="register-label">Confirm Password</label>
+            <input type="password" className="register-input" />
+
+            <button className="register-submit">Register</button>
+          </form>
+
+        </div>
+      </section>
+
     </div>
   );
 }

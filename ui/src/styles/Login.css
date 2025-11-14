@@ -112,3 +112,128 @@
     font-weight: normal;
     cursor: pointer;
 }
+
+.page-wrapper {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Each section occupies the full viewport */
+.screen-section {
+  height: 100vh;        /* full screen height */
+  width: 100vw;         /* full screen width */
+  overflow: hidden;     /* prevents internal scrolling */
+}
+
+/* Your existing layout should remain as-is */
+.main-container {
+  height: 100%;         /* ensures it fills the screen-section */
+  width: 100%;
+}
+
+.second-section {
+  position: relative;      /* IMPORTANT: anchors the absolute SVG */
+  height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+  background-color: var(--app-color-800);
+}
+
+.top-wave-absolute {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto; /* better than forcing 120px */
+  pointer-events: none;
+}
+
+.second-section-content {
+  width: 100%;
+  height: 100%;
+  padding-top: 200px;
+}
+
+/* already exists but update the padding */
+.second-section-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: var(--wave-height); /* auto aligns under the wave */
+  box-sizing: border-box;
+}
+
+/* The wrapper */
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* Title */
+.register-title {
+  margin: 0;
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--app-color-50);
+}
+
+.register-form {
+  width: 75vw;              /* 75% of the viewport width */
+  max-width: 900px;         /* optional: prevents it from getting too wide on large screens */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.register-label {
+  color: var(--app-color-50);
+  font-size: 1rem;
+  margin-bottom: 0.25rem;   /* tighter spacing */
+}
+
+.register-input {
+  height: 3rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--app-color-900);
+  background-color: var(--app-color-950);
+  color: var(--app-color-50);
+  padding: 0 1rem;
+  outline: none;
+  font-size: 1rem;
+}
+
+.register-input:focus {
+  border: 2px solid var(--app-color-50);
+}
+
+/* Register button */
+.register-submit {
+  height: 3rem;
+  border-radius: 0.5rem;
+  background-color: var(--app-color-500);
+  color: var(--app-color-50);
+  border: none;
+  font-size: 1rem;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.register-submit:hover {
+  background-color: var(--app-color-600);
+}
+
+.register-subtext {
+  width: 75vw;
+  max-width: 900px;
+  text-align: center;
+  color: var(--app-color-200);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 0;
+}
