@@ -113,6 +113,10 @@
     cursor: pointer;
 }
 
+.register-button:hover {
+    background-color: var(--app-color-600);
+}
+
 .page-wrapper {
   width: 100%;
   margin: 0;

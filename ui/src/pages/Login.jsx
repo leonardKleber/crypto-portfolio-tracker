@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
 
@@ -75,6 +75,12 @@ export default function Login() {
     if (success) navigate("/");
   };
 
+  const bottomRef = useRef();
+
+  const scrollToBottom = () => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className="page-wrapper">
       <section className="screen-section">
@@ -147,6 +153,7 @@ export default function Login() {
                 <button
                   type="button"
                   className="register-button"
+                  onClick={scrollToBottom}
                 >
                   Register
                 </button>
@@ -176,7 +183,7 @@ export default function Login() {
         </div>
       </section>
 
-      <section className="screen-section second-section">
+      <section className="screen-section second-section" ref={bottomRef}>
         <WaveIcon className="top-wave-absolute" />
 
         <div className="second-section-content register-container">
