@@ -132,3 +132,23 @@ def insert_transaction(
     )
     conn.commit()
     conn.close()
+
+
+def insert_user(username, password):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute(
+        INSERT_USER, 
+        (username, password,)
+    )
+    conn.commit()
+    conn.close()
+
+
+def get_all_users():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM users")
+    users = cursor.fetchall()
+    conn.close()
+    return users

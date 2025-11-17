@@ -117,7 +117,7 @@ class Dashboard:
         total_realized = sum(a['realized_return'] for a in self.data.values())
         total_unrealized = sum(a['unrealized_return_abs'] for a in self.data.values())
         total_return_abs = total_realized + total_unrealized
-        portfolio_return_pct = (total_return_abs / total_invested * 100)
+        portfolio_return_pct = (total_return_abs / total_invested * 100) if total_invested > 0 else 0
         return {
             "total_return": round(portfolio_return_pct, 2),
             "realized_return": round(total_realized, 2),

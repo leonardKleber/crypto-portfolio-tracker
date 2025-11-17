@@ -3,7 +3,9 @@ from .db import (
     create_user,
     get_user,
     get_transactions,
-    insert_transaction
+    insert_transaction,
+    insert_user,
+    get_all_users
 )
 
 from .dashboard import Dashboard

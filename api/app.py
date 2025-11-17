@@ -13,7 +13,9 @@ from src import (
     Dashboard, 
     get_transactions_json, 
     insert_transaction, 
-    SUPPORTED_COINS
+    SUPPORTED_COINS,
+    insert_user,
+    get_all_users
 )
 
 
@@ -85,7 +87,10 @@ def dashboard():
             {"error": "Missing 'username' in request body"}
         ), 400
     user_data = get_user(username=data["username"])
+    print(get_user(username=data["username"]))
+    print(get_user("test"))
     dashboard = Dashboard(user_id=user_data[0])
+    print(get_all_users())
     return dashboard.get_dashboard_data()
 
 
@@ -142,6 +147,39 @@ def add_transaction():
         timestamp=iso_str
     )
     return jsonify({"message": "Transaction added successfully"}), 200
+
+
+@app.post("/add-user")
+def add_user():
+    data = request.get_json()
+    required_fields = [
+        "username", 
+        "password",
+        "check_password"
+    ]
+    for field in required_fields:
+        if field not in data or data[field] in ("", None):
+            return jsonify({
+                "message": f"Missing required field: {field}"
+            }), 400
+    username = data.get("username")
+    password = data.get("password")
+    check_password = data.get("check_password")
+    if password != check_password:
+        return jsonify({
+            "message": f"Passwords do not match."
+        }), 400
+    response = get_user(username=username)
+    print(response)
+    if response is None:
+        insert_user(username=username, password=password)
+        return jsonify({"message": "User created successfully"}), 200
+    else:
+        return jsonify({
+            "message": f"User {username} already exists."
+        }), 400
+    
+    
 
 if __name__ == '__main__':
     app.run()

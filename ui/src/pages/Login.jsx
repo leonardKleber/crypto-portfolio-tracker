@@ -69,6 +69,43 @@ export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const [regUsername, setRegUsername] = useState("");
+  const [regPassword, setRegPassword] = useState("");
+  const [checkPassword, setCheckPassword] = useState("");
+  const [message, setMessage] = useState("");
+
+  const BASE_URL = process.env.REACT_APP_PROJECT_API_URL;
+
+  const handleRegisterSubmit = async (e) => {
+    e.preventDefault();
+    setMessage("");
+
+    try {
+      const response = await fetch(`${BASE_URL}/add-user`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: regUsername,
+          password: regPassword,
+          check_password: checkPassword,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setMessage(`Error: ${data.message}`);
+      } else {
+        setMessage(`Success: User ${regUsername} registered!`);
+      }
+    } catch (error) {
+      setMessage("Network error, please try again.");
+      console.error("Error:", error);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const success = await login(username, password);
@@ -195,17 +232,36 @@ export default function Login() {
             Stay organized, stay informed, and take control of your investments in one place.
           </p>
 
-          <form className="register-form">
+          <form className="register-form" onSubmit={handleRegisterSubmit}>
             <label className="register-label">Username</label>
-            <input type="text" className="register-input" />
+            <input
+              type="text"
+              className="register-input"
+              value={regUsername}
+              onChange={(e) => setRegUsername(e.target.value)}
+            />
 
             <label className="register-label">Password</label>
-            <input type="password" className="register-input" />
+            <input
+              type="password"
+              className="register-input"
+              value={regPassword}
+              onChange={(e) => setRegPassword(e.target.value)}
+            />
 
             <label className="register-label">Confirm Password</label>
-            <input type="password" className="register-input" />
+            <input
+              type="password"
+              className="register-input"
+              value={checkPassword}
+              onChange={(e) => setCheckPassword(e.target.value)}
+            />
 
-            <button className="register-submit">Register</button>
+            <button type="submit" className="register-submit">
+              Register
+            </button>
+
+            {message && <p>{message}</p>}
           </form>
 
         </div>
