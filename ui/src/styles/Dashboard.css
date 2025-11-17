@@ -1,0 +1,44 @@
+.left-button {
+    margin-left: 100px;
+    font-size: 1rem;
+    background-color: var(--app-color-950);
+    border: 1px solid var(--app-color-900);
+    border-radius: 6px;
+    color: var(--app-color-50);
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+    height: 2em
+}
+
+.left-button:hover {
+  background-color: var(--app-color-900);
+}
+
+.middle-button {
+    font-size: 1rem;
+    background-color: var(--app-color-950);
+    border: 1px solid var(--app-color-900);
+    border-radius: 6px;
+    color: var(--app-color-50);
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    height: 2em
+}
+
+.middle-button:hover {
+  background-color: var(--app-color-900);
+}
+
+.heading-one {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 50px;
+}
+
+.heading-two {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 50px;
+  padding-top: 30px;
+}
