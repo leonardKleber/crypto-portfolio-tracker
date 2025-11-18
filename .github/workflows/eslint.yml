@@ -8,6 +8,10 @@ jobs:
   lint:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: ./ui
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -22,3 +26,4 @@ jobs:
 
       - name: Run ESLint
         run: npm run lint
+
