@@ -1,8 +1,8 @@
-import "../styles/Table.css";
+import '../styles/Table.css'
 
-import { ReactComponent as CoinsIcon } from "../assets/icons/coins.svg";
+import { ReactComponent as CoinsIcon } from '../assets/icons/coins.svg'
 
-export default function Table({ table_data }) {
+export default function Table ({ table_data }) {
   return (
     <div className="table-container">
       <table className="data-table">
@@ -22,24 +22,24 @@ export default function Table({ table_data }) {
               <td className="table-cell">
                 <CoinsIcon
                   style={{
-                    width: "1rem",
-                    height: "1rem",
-                    fill: "var(--accent-color-500)",
-                    flexShrink: "0",
+                    width: '1rem',
+                    height: '1rem',
+                    fill: 'var(--accent-color-500)',
+                    flexShrink: '0',
                     transform: 'translateY(3px)',
-                    marginRight: "0.5rem"
+                    marginRight: '0.5rem'
                   }}
                 />
                 {item.name}
                 </td>
-              <td className="table-cell">{item.amount ? item.amount.toFixed(6) : "0"}</td>
-              <td className="table-cell">{item.value ? item.value.toFixed(2) : "0"}€</td>
-              <td className="table-cell">{item.unrealized_return ? item.unrealized_return.toFixed(2) : "0"}%</td>
-              <td className="table-cell">{item.allocation ? item.allocation.toFixed(2) : "0"}%</td>
+              <td className="table-cell">{item.amount ? item.amount.toFixed(6) : '0'}</td>
+              <td className="table-cell">{item.value ? item.value.toFixed(2) : '0'}€</td>
+              <td className="table-cell">{item.unrealized_return ? item.unrealized_return.toFixed(2) : '0'}%</td>
+              <td className="table-cell">{item.allocation ? item.allocation.toFixed(2) : '0'}%</td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
-  );
+  )
 }
