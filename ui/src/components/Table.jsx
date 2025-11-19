@@ -1,9 +1,11 @@
 import React from 'react'
 import '../styles/Table.css'
+import PropTypes from 'prop-types'
 
 import { ReactComponent as CoinsIcon } from '../assets/icons/coins.svg'
 
-export default function Table ({ table_data }) {
+export default function Table (props) {
+  const { tableData = [] } = props
   return (
     <div className="table-container">
       <table className="data-table">
@@ -18,7 +20,7 @@ export default function Table ({ table_data }) {
         </thead>
 
         <tbody>
-          {table_data.map((item, index) => (
+          {tableData.map((item, index) => (
             <tr key={index} className="table-body-row">
               <td className="table-cell">
                 <CoinsIcon
@@ -43,4 +45,16 @@ export default function Table ({ table_data }) {
       </table>
     </div>
   )
+}
+
+Table.propTypes = {
+  tableData: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      amount: PropTypes.number,
+      value: PropTypes.number,
+      unrealized_return: PropTypes.number,
+      allocation: PropTypes.number
+    })
+  ).isRequired
 }

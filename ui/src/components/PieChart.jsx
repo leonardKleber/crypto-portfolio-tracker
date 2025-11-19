@@ -1,8 +1,10 @@
 import React from 'react'
 import Chart from 'react-apexcharts'
 import '../styles/PieChart.css'
+import PropTypes from 'prop-types'
 
-export default function PieChart ({ chartHeight, pieSeries, pieLabels, totalValue }) {
+export default function PieChart (props) {
+  const { chartHeight, pieSeries, pieLabels, totalValue } = props
   const pieOptions = {
     labels: pieLabels,
     stroke: { show: false },
@@ -31,4 +33,11 @@ export default function PieChart ({ chartHeight, pieSeries, pieLabels, totalValu
       </div>
     </div>
   )
+}
+
+PieChart.propTypes = {
+  chartHeight: PropTypes.number.isRequired,
+  pieSeries: PropTypes.arrayOf(PropTypes.number).isRequired,
+  pieLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
+  totalValue: PropTypes.number.isRequired
 }

@@ -106,15 +106,15 @@ export default function Dashboard () {
       </div>
 
       <SummaryTable
-        portfolio_value={dashboardData.portfolio_value}
-        total_return={dashboardData.total_return}
-        realized_return={dashboardData.realized_return}
+        portfolioValue={dashboardData.portfolio_value}
+        totalReturn={dashboardData.total_return}
+        realizedReturn={dashboardData.realized_return}
       />
 
       <h1 className="heading-two">Holdings</h1>
 
       <Table
-        table_data={dashboardData.table_data}
+        tableData={dashboardData.table_data}
       />
 
     </div>

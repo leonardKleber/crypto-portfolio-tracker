@@ -1,7 +1,9 @@
 import React from 'react'
 import '../styles/SummaryTable.css'
+import PropTypes from 'prop-types'
 
-export default function SummaryTable ({ portfolio_value, total_return, realized_return }) {
+export default function SummaryTable (props) {
+  const { portfolioValue, totalReturn, realizedReturn } = props
   return (
     <table style={{ paddingRight: '60px', width: '100%', paddingTop: '30px' }}>
       <tbody>
@@ -14,9 +16,9 @@ export default function SummaryTable ({ portfolio_value, total_return, realized_
           <td className="td-text"></td>
         </tr>
         <tr className="number-tr">
-          <td>{portfolio_value ? portfolio_value.toFixed(2) : '0'}€</td>
-          <td>{total_return ? total_return.toFixed(2) : '0'}%</td>
-          <td>{realized_return ? realized_return.toFixed(2) : '0'}€</td>
+          <td>{portfolioValue ? portfolioValue.toFixed(2) : '0'}€</td>
+          <td>{totalReturn ? totalReturn.toFixed(2) : '0'}%</td>
+          <td>{realizedReturn ? realizedReturn.toFixed(2) : '0'}€</td>
           <td></td>
           <td></td>
           <td></td>
@@ -24,4 +26,10 @@ export default function SummaryTable ({ portfolio_value, total_return, realized_
       </tbody>
     </table>
   )
+}
+
+SummaryTable.propTypes = {
+  portfolioValue: PropTypes.number.isRequired,
+  totalReturn: PropTypes.number.isRequired,
+  realizedReturn: PropTypes.number.isRequired
 }
