@@ -1,3 +1,4 @@
+import React from 'react'
 import '../styles/SummaryTable.css'
 
 export default function SummaryTable ({ portfolio_value, total_return, realized_return }) {

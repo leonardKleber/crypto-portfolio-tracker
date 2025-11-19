@@ -1,10 +1,12 @@
-import { createContext, useContext, useState, useEffect } from 'react'
+import React, { createContext, useContext, useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 
 const API_BASE_URL = process.env.REACT_APP_PROJECT_API_URL
 
 const AuthContext = createContext()
 
-export const AuthProvider = ({ children }) => {
+export const AuthProvider = (props) => {
+  const { children } = props
   const [user, setUser] = useState(null)
 
   useEffect(() => {
@@ -45,6 +47,10 @@ export const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   )
+}
+
+AuthProvider.propTypes = {
+  children: PropTypes.node.isRequired
 }
 
 export const useAuth = () => useContext(AuthContext)

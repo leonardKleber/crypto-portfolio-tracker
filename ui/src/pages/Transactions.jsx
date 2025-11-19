@@ -1,5 +1,5 @@
+import React, { useEffect, useState } from 'react'
 import { useAuth } from '../AuthContext'
-import { useEffect, useState } from 'react'
 import '../styles/Transactions.css'
 
 const API_BASE_URL = process.env.REACT_APP_PROJECT_API_URL

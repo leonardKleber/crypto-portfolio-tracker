@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react'
 import PieChart from '../components/PieChart'
 import LineChart from '../components/LineChart'
 import SummaryTable from '../components/SummaryTable'
@@ -5,7 +6,6 @@ import Table from '../components/Table'
 import '../styles/Dashboard.css'
 
 import { useAuth } from '../AuthContext'
-import { useEffect, useState } from 'react'
 
 const API_BASE_URL = process.env.REACT_APP_PROJECT_API_URL
 

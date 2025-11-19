@@ -1,3 +1,4 @@
+import React from 'react'
 import '../styles/Table.css'
 
 import { ReactComponent as CoinsIcon } from '../assets/icons/coins.svg'

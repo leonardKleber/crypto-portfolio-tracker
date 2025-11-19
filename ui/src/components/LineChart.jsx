@@ -1,6 +1,9 @@
+import React from 'react'
 import Chart from 'react-apexcharts'
+import PropTypes from 'prop-types'
 
-export default function AreaChart ({ chartHeight, lineChartWidth, lineSeries, categories }) {
+export default function LineChart (props) {
+  const { chartHeight, lineChartWidth, lineSeries, categories } = props
   const areaOptions = {
     chart: {
       id: 'area-chart',
@@ -55,4 +58,13 @@ export default function AreaChart ({ chartHeight, lineChartWidth, lineSeries, ca
       height={chartHeight}
     />
   )
+}
+
+LineChart.propTypes = {
+  chartHeight: PropTypes.number.isRequired,
+  lineChartWidth: PropTypes.number.isRequired,
+  lineSeries: PropTypes.arrayOf(PropTypes.object).isRequired,
+  categories: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ).isRequired
 }
