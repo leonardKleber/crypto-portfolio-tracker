@@ -1,4 +1,4 @@
-# Invertym — A Crypto Portfolio Tracker
+# A Crypto Portfolio Tracker
 Track your crypto portfolio effortlessly — analyze performance, monitor returns, and stay in control of your investments.
 
 ## Create `.env` Files
@@ -13,4 +13,41 @@ To setup the backend, navigate to the `/ui` directory, create a new file named `
 
 ```
 REACT_APP_PROJECT_API_URL=<your_api_url>
+```
+
+## Linting & Code Quality
+
+This project uses:
+
+- ESLint for JavaScript/React linting (`/ui` folder)
+
+- Pylint for Python linting (`/api` folder)
+
+Below are the instructions for installing and running both.
+
+### ESLint (React Frontend)
+
+#### Install dependencies
+```
+cd ui
+npm install
+```
+#### Run ESLint
+```
+npm run lint
+```
+To automatically fix problems where possible:
+```
+npm run lint:fix
+```
+
+### Pylint (Python Backend)
+
+#### Install dependencies
+```
+pip install -r requirements.txt
+```
+#### Run Pylint
+```
+pylint api
 ```
