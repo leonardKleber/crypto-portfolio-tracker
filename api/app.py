@@ -106,7 +106,7 @@ def add_transaction():
     if user_data is None:
         return jsonify({"message": "User does not exist"}), 400
     if data["type"] != "buy" and data["type"] != "sell":
-        return jsonify({"message": f"{data["type"]} not a valid transaction type"}), 400
+        return jsonify({"message": f"{data['type']} not a valid transaction type"}), 400
     if not any(c["id"] == data["asset"] for c in SUPPORTED_COINS):
         return jsonify({"message": f"{data['asset']} is not a valid asset"}), 400
     dt = datetime.strptime(data["date"], "%Y-%m-%d")
