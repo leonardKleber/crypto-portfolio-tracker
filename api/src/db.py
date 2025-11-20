@@ -1,3 +1,6 @@
+"""
+This file defines all functions that directly interact with the SQLite database of this project.
+"""
 import os
 import sqlite3
 
@@ -50,55 +53,38 @@ SELECT * FROM transactions WHERE user_id = ?;
 
 
 def get_db_connection():
-    parent_dir = os.path.dirname(
-        os.path.dirname(os.path.abspath(__file__))
-    )
+    """
+    Establishes a connection to the SQLite database of this project.
+    """
+    parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     db_path = os.path.join(parent_dir, DATABASE_NAME)
     return sqlite3.connect(db_path)
 
 
 def create_db():
+    """
+    Creates a new database. This function should ideally be called only once—when the project is
+    deployed for the first time. It creates all required tables and fills them with sample data for
+    testing.
+    """
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute(CREATE_USERS_TABLE)
     cursor.execute(CREATE_TRANSACTIONS_TABLE)
-    
-    # Insert test data into database
     cursor.execute(INSERT_USER, ("leonard", "fishtank",))
-    cursor.execute(
-        INSERT_TRANSACTION, 
-        (1, "bitcoin", 0.05071340, 5000.00, "buy", "2025-10-12")
-    )
-    cursor.execute(
-        INSERT_TRANSACTION, 
-        (1, "bitcoin", 0.04073220, 4000.00, "sell", "2025-10-14")
-    )
-    cursor.execute(
-        INSERT_TRANSACTION, 
-        (1, "bitcoin", 0.02073220, 2000.00, "buy", "2025-10-14")
-    )
-    cursor.execute(
-        INSERT_TRANSACTION, 
-        (1, "ethereum", 1, 3089.71, "buy", "2025-07-20")
-    )
-    cursor.execute(
-        INSERT_TRANSACTION, 
-        (1, "ethereum", 0.5, 3906.20, "sell", "2025-08-15")
-    )
-    
-    conn.commit()
-    conn.close()
-
-
-def create_user(username, password):
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute(INSERT_USER, (username, password,))
+    cursor.execute(INSERT_TRANSACTION, (1, "bitcoin", 0.05071340, 5000.00, "buy", "2025-10-12"))
+    cursor.execute(INSERT_TRANSACTION, (1, "bitcoin", 0.04073220, 4000.00, "sell", "2025-10-14"))
+    cursor.execute(INSERT_TRANSACTION, (1, "bitcoin", 0.02073220, 2000.00, "buy", "2025-10-14"))
+    cursor.execute(INSERT_TRANSACTION, (1, "ethereum", 1, 3089.71, "buy", "2025-07-20"))
+    cursor.execute(INSERT_TRANSACTION, (1, "ethereum", 0.5, 3906.20, "sell", "2025-08-15"))
     conn.commit()
     conn.close()
 
 
 def get_user(username):
+    """
+    Retrieves all user data related to a username.
+    """
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute(GET_USER_BY_USERNAME, (username,))
@@ -108,6 +94,9 @@ def get_user(username):
 
 
 def get_transactions(user_id):
+    """
+    Retrieves all transaction data for a user by their user ID.
+    """
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute(GET_TRANSACTIONS_BY_USER_ID, (user_id,))
@@ -116,36 +105,32 @@ def get_transactions(user_id):
     return transaction_data
 
 
-def insert_transaction(
-    user_id, 
-    coin_id, 
-    amount, 
-    price, 
-    type, 
-    timestamp
-):
+def insert_transaction(user_id, coin_id, amount, price, t_type, timestamp): # pylint: disable=too-many-positional-arguments, too-many-arguments
+    """
+    Inserts a new transaction into the transactions table.
+    """
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute(
-        INSERT_TRANSACTION, 
-        (user_id, coin_id, amount, price, type, timestamp,)
-    )
+    cursor.execute(INSERT_TRANSACTION, (user_id, coin_id, amount, price, t_type, timestamp,))
     conn.commit()
     conn.close()
 
 
 def insert_user(username, password):
+    """
+    Inserts a new user into the users table.
+    """
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute(
-        INSERT_USER, 
-        (username, password,)
-    )
+    cursor.execute(INSERT_USER, (username, password,))
     conn.commit()
     conn.close()
 
 
 def get_all_users():
+    """
+    Retrieves all data from the users table.
+    """
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM users")
