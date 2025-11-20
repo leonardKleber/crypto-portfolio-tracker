@@ -116,7 +116,7 @@ def add_transaction():
         coin_id=data["asset"],
         amount=data["amount"],
         price=data["value"],
-        type=data["type"],
+        t_type=data["type"],
         timestamp=iso_str
     )
     return jsonify({"message": "Transaction added successfully"}), 200

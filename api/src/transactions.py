@@ -1,19 +1,19 @@
-from .db import get_transactions
-
+"""
+This file handles all functionality required for the transactions page.
+"""
 from datetime import datetime
 from collections import defaultdict
+from .db import get_transactions
 
 
 def get_transactions_json(user_id):
+    """
+    This function retrieves all transactions for a user and transforms them into a format that can
+    be easily parsed by the transactions component on the frontend.
+    """
     transactions = get_transactions(user_id=user_id)
     sorted_transactions = [
-        {
-            "asset": t[2],
-            "amount": t[3],
-            "value": t[4],
-            "type": t[5],
-            "date": t[6]
-        }
+        {"asset": t[2], "amount": t[3], "value": t[4], "type": t[5], "date": t[6]}
         for t in transactions
     ]
     sorted_transactions.sort(key=lambda x: datetime.strptime(x["date"], "%Y-%m-%d"), reverse=True)
