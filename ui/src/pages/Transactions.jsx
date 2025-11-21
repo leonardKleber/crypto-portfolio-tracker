@@ -1,96 +1,96 @@
-import { useAuth } from "../AuthContext";
-import { useEffect, useState } from "react";
-import "../styles/Transactions.css";
+import React, { useEffect, useState } from 'react'
+import { useAuth } from '../AuthContext'
+import '../styles/Transactions.css'
 
-const API_BASE_URL = process.env.REACT_APP_PROJECT_API_URL;
+const API_BASE_URL = process.env.REACT_APP_PROJECT_API_URL
 
-export default function Transactions() {
-  const { user } = useAuth();
-  const [transactionData, setTransactionData] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+export default function Transactions () {
+  const { user } = useAuth()
+  const [transactionData, setTransactionData] = useState([])
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const [formData, setFormData] = useState({
-    type: "",
-    asset: "",
-    amount: "",
-    value: "",
-    date: "",
-  });
+    type: '',
+    asset: '',
+    amount: '',
+    value: '',
+    date: ''
+  })
 
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState('')
 
   // ✅ Move this outside useEffect so we can reuse it
   const fetchTransactionData = async () => {
     try {
       const response = await fetch(`${API_BASE_URL}/transactions`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ username: user }),
-      });
+        body: JSON.stringify({ username: user })
+      })
 
-      const data = await response.json();
-      setTransactionData(data);
+      const data = await response.json()
+      setTransactionData(data)
     } catch (error) {
-      console.error("Error fetching transaction data:", error);
+      console.error('Error fetching transaction data:', error)
     }
-  };
+  }
 
   useEffect(() => {
     if (user) {
-      fetchTransactionData();
+      fetchTransactionData()
     }
-  }, [user]);
+  }, [user])
 
   const handleFormChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
+  }
 
   const handleAddTransaction = async (e) => {
-    e.preventDefault();
-    setErrorMessage("");
+    e.preventDefault()
+    setErrorMessage('')
 
     try {
       const response = await fetch(`${API_BASE_URL}/add-transaction`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ username: user, ...formData }),
-      });
+        body: JSON.stringify({ username: user, ...formData })
+      })
 
-      const data = await response.json();
+      const data = await response.json()
 
       if (!response.ok) {
         // Use backend's message if available
-        setErrorMessage(data.message || "Transaction failed.");
-        return;
+        setErrorMessage(data.message || 'Transaction failed.')
+        return
       }
 
       // ✅ Refetch updated transactions after adding
-      await fetchTransactionData();
+      await fetchTransactionData()
 
       // Reset form and close modal
-      setIsModalOpen(false);
+      setIsModalOpen(false)
       setFormData({
-        type: "",
-        asset: "",
-        amount: "",
-        value: "",
-        date: "",
-      });
+        type: '',
+        asset: '',
+        amount: '',
+        value: '',
+        date: ''
+      })
     } catch (error) {
-      console.error("Error adding transaction:", error);
-      setErrorMessage("Network or server error. Please try again.");
+      console.error('Error adding transaction:', error)
+      setErrorMessage('Network or server error. Please try again.')
     }
-  };
+  }
 
   return (
     <div>
-      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-        <h1 style={{ fontSize: "24px", fontWeight: "bold" }}>Transactions</h1>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <h1 style={{ fontSize: '24px', fontWeight: 'bold' }}>Transactions</h1>
         <button
           onClick={() => setIsModalOpen(true)}
           className="add-button"
@@ -99,12 +99,13 @@ export default function Transactions() {
         </button>
       </div>
 
-      {Array.isArray(transactionData) && transactionData.length > 0 ? (
-        transactionData.map((entry, i) => {
-          const [date, transactions] = Object.entries(entry)[0];
-          return (
-            <div key={i} style={{ marginBottom: "20px" }}>
-              <p style={{ color: "var(--app-color-300)" }}>{date}</p>
+      {Array.isArray(transactionData) && transactionData.length > 0
+        ? (
+            transactionData.map((entry, i) => {
+              const [date, transactions] = Object.entries(entry)[0]
+              return (
+            <div key={i} style={{ marginBottom: '20px' }}>
+              <p style={{ color: 'var(--app-color-300)' }}>{date}</p>
 
               <div className="table-container">
                 <table className="trans-table">
@@ -128,11 +129,12 @@ export default function Transactions() {
                 </table>
               </div>
             </div>
-          );
-        })
-      ) : (
+              )
+            })
+          )
+        : (
         <p>No transactions found.</p>
-      )}
+          )}
 
       {/* --- Popup Modal --- */}
       {isModalOpen && (
@@ -204,5 +206,5 @@ export default function Transactions() {
         </div>
       )}
     </div>
-  );
+  )
 }

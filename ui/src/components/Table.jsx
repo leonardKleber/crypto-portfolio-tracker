@@ -1,8 +1,11 @@
-import "../styles/Table.css";
+import React from 'react'
+import '../styles/Table.css'
+import PropTypes from 'prop-types'
 
-import { ReactComponent as CoinsIcon } from "../assets/icons/coins.svg";
+import { ReactComponent as CoinsIcon } from '../assets/icons/coins.svg'
 
-export default function Table({ table_data }) {
+export default function Table (props) {
+  const { tableData = [] } = props
   return (
     <div className="table-container">
       <table className="data-table">
@@ -17,29 +20,41 @@ export default function Table({ table_data }) {
         </thead>
 
         <tbody>
-          {table_data.map((item, index) => (
+          {tableData.map((item, index) => (
             <tr key={index} className="table-body-row">
               <td className="table-cell">
                 <CoinsIcon
                   style={{
-                    width: "1rem",
-                    height: "1rem",
-                    fill: "var(--accent-color-500)",
-                    flexShrink: "0",
+                    width: '1rem',
+                    height: '1rem',
+                    fill: 'var(--accent-color-500)',
+                    flexShrink: '0',
                     transform: 'translateY(3px)',
-                    marginRight: "0.5rem"
+                    marginRight: '0.5rem'
                   }}
                 />
                 {item.name}
                 </td>
-              <td className="table-cell">{item.amount ? item.amount.toFixed(6) : "0"}</td>
-              <td className="table-cell">{item.value ? item.value.toFixed(2) : "0"}€</td>
-              <td className="table-cell">{item.unrealized_return ? item.unrealized_return.toFixed(2) : "0"}%</td>
-              <td className="table-cell">{item.allocation ? item.allocation.toFixed(2) : "0"}%</td>
+              <td className="table-cell">{item.amount ? item.amount.toFixed(6) : '0'}</td>
+              <td className="table-cell">{item.value ? item.value.toFixed(2) : '0'}€</td>
+              <td className="table-cell">{item.unrealized_return ? item.unrealized_return.toFixed(2) : '0'}%</td>
+              <td className="table-cell">{item.allocation ? item.allocation.toFixed(2) : '0'}%</td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
-  );
+  )
+}
+
+Table.propTypes = {
+  tableData: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      amount: PropTypes.number,
+      value: PropTypes.number,
+      unrealized_return: PropTypes.number,
+      allocation: PropTypes.number
+    })
+  ).isRequired
 }

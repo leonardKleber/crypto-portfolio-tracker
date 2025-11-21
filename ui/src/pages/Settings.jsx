@@ -1,3 +1,5 @@
-export default function Settings() {
-  return <h1 style={{ fontSize: "24px", fontWeight: "bold" }}>Settings</h1>;
+import React from 'react'
+
+export default function Settings () {
+  return <h1 style={{ fontSize: '24px', fontWeight: 'bold' }}>Settings</h1>
 }

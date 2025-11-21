@@ -1,14 +1,15 @@
-import { Routes, Route } from "react-router-dom";
-import { AuthProvider } from "./AuthContext";
-import ProtectedRoute from "./ProtectedRoute";
+import React from 'react'
+import { Routes, Route } from 'react-router-dom'
+import { AuthProvider } from './AuthContext'
+import ProtectedRoute from './ProtectedRoute'
 
-import Layout from "./components/Layout";
-import Dashboard from "./pages/Dashboard";
-import Settings from "./pages/Settings";
-import Login from "./pages/Login";
-import Transactions from "./pages/Transactions";
+import Layout from './components/Layout'
+import Dashboard from './pages/Dashboard'
+import Settings from './pages/Settings'
+import Login from './pages/Login'
+import Transactions from './pages/Transactions'
 
-export default function App() {
+export default function App () {
   return (
     <AuthProvider>
       <Routes>
@@ -30,6 +31,5 @@ export default function App() {
         </Route>
       </Routes>
     </AuthProvider>
-  );
+  )
 }
-
