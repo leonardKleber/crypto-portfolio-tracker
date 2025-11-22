@@ -8,7 +8,6 @@ export default function Transactions () {
   const { user } = useAuth()
   const [transactionData, setTransactionData] = useState([])
   const [isModalOpen, setIsModalOpen] = useState(false)
-
   const [formData, setFormData] = useState({
     type: '',
     asset: '',
@@ -16,20 +15,15 @@ export default function Transactions () {
     value: '',
     date: ''
   })
-
   const [errorMessage, setErrorMessage] = useState('')
 
-  // ✅ Move this outside useEffect so we can reuse it
   const fetchTransactionData = async () => {
     try {
       const response = await fetch(`${API_BASE_URL}/transactions`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: user })
       })
-
       const data = await response.json()
       setTransactionData(data)
     } catch (error) {
@@ -38,9 +32,7 @@ export default function Transactions () {
   }
 
   useEffect(() => {
-    if (user) {
-      fetchTransactionData()
-    }
+    if (user) fetchTransactionData()
   }, [user])
 
   const handleFormChange = (e) => {
@@ -51,28 +43,18 @@ export default function Transactions () {
   const handleAddTransaction = async (e) => {
     e.preventDefault()
     setErrorMessage('')
-
     try {
       const response = await fetch(`${API_BASE_URL}/add-transaction`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: user, ...formData })
       })
-
       const data = await response.json()
-
       if (!response.ok) {
-        // Use backend's message if available
         setErrorMessage(data.message || 'Transaction failed.')
         return
       }
-
-      // ✅ Refetch updated transactions after adding
       await fetchTransactionData()
-
-      // Reset form and close modal
       setIsModalOpen(false)
       setFormData({
         type: '',
@@ -136,14 +118,10 @@ export default function Transactions () {
         <p>No transactions found.</p>
           )}
 
-      {/* --- Popup Modal --- */}
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal">
-            <button className="close-btn" onClick={() => setIsModalOpen(false)}>
-              ✕
-            </button>
-
+            <button className="close-btn" onClick={() => setIsModalOpen(false)}>✕</button>
             <h2>Add Transaction</h2>
             <form onSubmit={handleAddTransaction} className="modal-form">
               Date
@@ -193,11 +171,7 @@ export default function Transactions () {
                 onChange={handleFormChange}
                 required
               />
-              <button type="submit" className="submit-btn">
-                Save
-              </button>
-
-              {/* Error message from backend */}
+              <button type="submit" className="submit-btn">Save</button>
               {errorMessage && (
                 <p className="error-message">{errorMessage}</p>
               )}
