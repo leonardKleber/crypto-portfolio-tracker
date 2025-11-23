@@ -49,13 +49,18 @@ def get_current_prices():
     for coin in SUPPORTED_COINS:
         ids = ids + coin["id"] + ","
     params = { "ids": ids, "vs_currencies": PROJECT_CURRENCY }
-    response = requests.get(url=API_BASE_URL+"/simple/price", params=params, timeout=300)
+    response = requests.get(
+        url=API_BASE_URL+"/simple/price",
+        params=params,
+        timeout=300,
+        headers=HEADERS
+    )
     if response.status_code == 200:
         result = {}
         for coin in response.json():
             result[coin] = response.json()[coin][PROJECT_CURRENCY]
         return result
-    return None
+    return {}
 
 
 def get_historic_data(coin_id):
