@@ -1,7 +1,7 @@
 # A Crypto Portfolio Tracker
 Track your crypto portfolio effortlessly — analyze performance, monitor returns, and stay in control of your investments.
 
-[![API](https://img.shields.io/badge/Live%20API-Online-brightgreen)](https://crypto-portfolio-tracker-a2tx.onrender.com/)
+[![API on Render](https://img.shields.io/badge/API%20on-Render-blue?logo=render&logoColor=white)](https://crypto-portfolio-tracker-a2tx.onrender.com/)
 
 ## Create `.env` Files
 
