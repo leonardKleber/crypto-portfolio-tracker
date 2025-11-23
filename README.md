@@ -1,6 +1,8 @@
 # A Crypto Portfolio Tracker
 Track your crypto portfolio effortlessly — analyze performance, monitor returns, and stay in control of your investments.
 
+[![API](https://img.shields.io/badge/Live%20API-Online-brightgreen)](https://crypto-portfolio-tracker-a2tx.onrender.com/)
+
 ## Create `.env` Files
 
 Inside the `/api` directory, create a new file named `.env` and add the following line, replacing the placeholder with your actual CoinGecko API key:
