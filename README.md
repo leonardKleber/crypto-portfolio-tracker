@@ -1,6 +1,8 @@
 # A Crypto Portfolio Tracker
 Track your crypto portfolio effortlessly — analyze performance, monitor returns, and stay in control of your investments.
 
+[![Live Frontend](https://img.shields.io/badge/Vercel-Live%20Frontend-black?logo=vercel)](https://crypto-portfolio-tracker-ojtstt49f-leonardklebers-projects.vercel.app/)
+
 [![API on Render](https://img.shields.io/badge/API%20on-Render-blue?logo=render&logoColor=white)](https://crypto-portfolio-tracker-a2tx.onrender.com/)
 
 ## Create `.env` Files
