@@ -7,6 +7,7 @@ import { ReactComponent as PersonIcon } from '../assets/icons/person.svg'
 import { ReactComponent as DashboardIcon } from '../assets/icons/dashboard.svg'
 import { ReactComponent as SettingsIcon } from '../assets/icons/settings.svg'
 import { ReactComponent as TransactionsIcon } from '../assets/icons/stacks.svg'
+import { ReactComponent as PercentIcon } from '../assets/icons/percent.svg'
 
 export default function Layout () {
   const { user, logout } = useAuth()
@@ -32,6 +33,14 @@ export default function Layout () {
           >
             <TransactionsIcon className="svg-icon" />
             <span>Transactions</span>
+          </NavLink>
+
+          <NavLink
+            to="/taxes"
+            className={({ isActive }) => (isActive ? 'link active' : 'link')}
+          >
+            <PercentIcon className="svg-icon" />
+            <span>Taxes</span>
           </NavLink>
 
           <NavLink
