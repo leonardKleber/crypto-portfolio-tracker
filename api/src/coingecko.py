@@ -15,7 +15,9 @@ HEADERS = { 'x-cg-demo-api-key': API_KEY }
 API_BASE_URL = "https://api.coingecko.com/api/v3"
 SUPPORTED_COINS = [
     { "id": "bitcoin", "symbol": "btc", "name": "Bitcoin" },
-    { "id": "ethereum", "symbol": "eth", "name": "Ethereum" }
+    { "id": "ethereum", "symbol": "eth", "name": "Ethereum" },
+    { "id": "solana", "symbol": "sol", "name":"Solana" },
+    { "id": "litecoin", "symbol": "ltc", "name": "Litecoin" }
 ]
 PROJECT_CURRENCY = "eur"
 

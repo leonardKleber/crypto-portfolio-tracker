@@ -111,7 +111,7 @@ class Dashboard:
                 "return_total_pct": round(asset_data["return_total_pct"], 2),
                 "unrealized_return": round(asset_data["unrealized_return_pct"], 2),
                 "realized_return": round(asset_data["realized_return"], 2),
-                "allocation": round(asset_data["current_value"] / portfolio_value, 2)
+                "allocation": round(asset_data["current_value"] / portfolio_value, 2) * 100
             }
             for asset, asset_data in self.data.items()
         ]
