@@ -31,6 +31,14 @@ def index():
     return "<p>Hello, World!</p>"
 
 
+@app.get("/coins")
+def coins():
+    """
+    Returns a list of all currently supported coins.
+    """
+    return SUPPORTED_COINS
+
+
 @app.post("/login")
 def login():
     """
